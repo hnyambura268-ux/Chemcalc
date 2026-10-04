@@ -216,29 +216,87 @@ function balanceUI(){
 }
 
 function gasLawsUI(){
-  panel.innerHTML=`<h2>💨 Gas Laws</h2><p class="muted">Choose a gas-law calculator. Temperatures are in kelvin.</p>
-  <select id="gasLawType"><option value="ideal">Ideal Gas Law (PV=nRT)</option><option value="boyle">Boyle's Law (P₁V₁=P₂V₂)</option><option value="charles">Charles' Law (V₁/T₁=V₂/T₂)</option><option value="combined">Combined Gas Law (P₁V₁/T₁=P₂V₂/T₂)</option></select><div id="gasFields"></div><div id="gasResult"></div>`;
+  panel.innerHTML=`<h2>💨 Gas Laws</h2>
+  <p class="muted">Choose a law, select the unknown, enter the other values, and ChemCalc will show the formula, substitution and answer.</p>
+  <label>Law</label><select id="gasLawType">
+    <option value="ideal">Ideal Gas Law — PV = nRT</option>
+    <option value="boyle">Boyle's Law — P₁V₁ = P₂V₂</option>
+    <option value="charles">Charles' Law — V₁/T₁ = V₂/T₂</option>
+    <option value="combined">Combined Gas Law — P₁V₁/T₁ = P₂V₂/T₂</option>
+  </select>
+  <div id="gasFields"></div><div id="gasResult"></div>`;
   const type=document.getElementById('gasLawType');
   const fields=document.getElementById('gasFields');
-  const render=()=>{
+  const result=document.getElementById('gasResult');
+  const field=(id,label,placeholder='')=>`<label>${label}</label><input id="${id}" type="number" step="any" min="0" placeholder="${placeholder}">`;
+  const num=id=>{const x=Number(document.getElementById(id).value); if(!Number.isFinite(x)||x<=0) throw Error('Enter a positive value in every required field.'); return x;};
+  function render(){
     const t=type.value;
-    if(t==='ideal') fields.innerHTML=inp('gn','Moles n')+inp('gT','Temperature T (K)')+inp('gV','Volume V (L)');
-    if(t==='boyle') fields.innerHTML=inp('gP1','P₁')+inp('gV1','V₁')+inp('gP2','P₂');
-    if(t==='charles') fields.innerHTML=inp('gV1','V₁')+inp('gT1','T₁ (K)')+inp('gT2','T₂ (K)');
-    if(t==='combined') fields.innerHTML=inp('gP1','P₁')+inp('gV1','V₁')+inp('gT1','T₁ (K)')+inp('gP2','P₂')+inp('gT2','T₂ (K)');
-    fields.insertAdjacentHTML('beforeend','<button class="primary" id="gasGo">Calculate</button>');
-    document.getElementById('gasGo').onclick=()=>{
-      try{
-        let out='';
-        if(t==='ideal'){const n=v('gn'),T=v('gT'),V=v('gV'); if(!(n>0&&T>0&&V>0)) throw Error('Enter positive values for n, T and V.'); const R=0.082057; const P=n*R*T/V; out=`PV=nRT\nP = nRT/V\nP = ${n} × ${R} × ${T} / ${V}\nP = <b>${P.toFixed(4)} atm</b>`;}
-        if(t==='boyle'){const P1=v('gP1'),V1=v('gV1'),P2=v('gP2'); if(!(P1>0&&V1>0&&P2>0)) throw Error('Enter positive pressures and volume.'); const V2=P1*V1/P2; out=`P₁V₁=P₂V₂\nV₂ = P₁V₁/P₂\nV₂ = <b>${V2.toFixed(4)}</b>`;}
-        if(t==='charles'){const V1=v('gV1'),T1=v('gT1'),T2=v('gT2'); if(!(V1>0&&T1>0&&T2>0)) throw Error('Enter positive volume and absolute temperatures.'); const V2=V1*T2/T1; out=`V₁/T₁=V₂/T₂\nV₂ = V₁T₂/T₁\nV₂ = <b>${V2.toFixed(4)} L</b>`;}
-        if(t==='combined'){const P1=v('gP1'),V1=v('gV1'),T1=v('gT1'),P2=v('gP2'),T2=v('gT2'); if(!(P1>0&&V1>0&&T1>0&&P2>0&&T2>0)) throw Error('Enter positive pressures, volume and absolute temperatures.'); const V2=P1*V1*T2/(T1*P2); out=`P₁V₁/T₁=P₂V₂/T₂\nV₂ = P₁V₁T₂/(T₁P₂)\nV₂ = <b>${V2.toFixed(4)} L</b>`;}
-        document.getElementById('gasResult').innerHTML='<div class="result">'+out+'</div>';
-        localStorage.setItem('lastCalc','Gas Laws\n'+out.replace(/<[^>]+>/g,''));
-      }catch(e){document.getElementById('gasResult').innerHTML='<div class="result">⚠️ '+e.message+'</div>';}
-    };
-  };
+    let html='';
+    if(t==='ideal'){
+      html='<label>Solve for</label><select id="gasUnknown"><option value="P">Pressure P (atm)</option><option value="V">Volume V (L)</option><option value="n">Moles n (mol)</option><option value="T">Temperature T (K)</option></select><div id="gasInputs"></div>';
+    }else if(t==='boyle'){
+      html='<label>Solve for</label><select id="gasUnknown"><option value="P2">P₂</option><option value="V2">V₂</option></select><div id="gasInputs"></div>';
+    }else if(t==='charles'){
+      html='<label>Solve for</label><select id="gasUnknown"><option value="V2">V₂</option><option value="T2">T₂</option><option value="V1">V₁</option><option value="T1">T₁</option></select><div id="gasInputs"></div>';
+    }else{
+      html='<label>Solve for</label><select id="gasUnknown"><option value="V2">V₂</option><option value="P2">P₂</option><option value="T2">T₂</option><option value="V1">V₁</option><option value="P1">P₁</option><option value="T1">T₁</option></select><div id="gasInputs"></div>';
+    }
+    fields.innerHTML=html+'<button class="primary" id="gasGo">Calculate</button>';
+    document.getElementById('gasUnknown').onchange=renderInputs;
+    renderInputs();
+    document.getElementById('gasGo').onclick=calculate;
+  }
+  function renderInputs(){
+    const t=type.value, u=document.getElementById('gasUnknown').value, box=document.getElementById('gasInputs');
+    let h='';
+    const add=(id,label)=>{if(id!==u) h+=field(id,label);};
+    if(t==='ideal'){
+      add('gP','Pressure P (atm)'); add('gV','Volume V (L)'); add('gn','Moles n (mol)'); add('gT','Temperature T (K)');
+    }else if(t==='boyle'){
+      add('gP1','Pressure P₁'); add('gV1','Volume V₁ (L)'); add('gP2','Pressure P₂'); add('gV2','Volume V₂ (L)');
+    }else if(t==='charles'){
+      add('gV1','Volume V₁ (L)'); add('gT1','Temperature T₁ (K)'); add('gV2','Volume V₂ (L)'); add('gT2','Temperature T₂ (K)');
+    }else{
+      add('gP1','Pressure P₁'); add('gV1','Volume V₁ (L)'); add('gT1','Temperature T₁ (K)'); add('gP2','Pressure P₂'); add('gV2','Volume V₂ (L)'); add('gT2','Temperature T₂ (K)');
+    }
+    box.innerHTML=h;
+  }
+  function calculate(){
+    try{
+      const t=type.value, u=document.getElementById('gasUnknown').value; let answer, unit, formula, substitution;
+      if(t==='ideal'){
+        const R=0.082057;
+        if(u==='P'){const n=num('gn'),T=num('gT'),V=num('gV'); answer=n*R*T/V; unit='atm'; formula='P = nRT / V'; substitution=`P = ${n} × ${R} × ${T} / ${V}`;}
+        if(u==='V'){const P=num('gP'),n=num('gn'),T=num('gT'); answer=n*R*T/P; unit='L'; formula='V = nRT / P'; substitution=`V = ${n} × ${R} × ${T} / ${P}`;}
+        if(u==='n'){const P=num('gP'),V=num('gV'),T=num('gT'); answer=P*V/(R*T); unit='mol'; formula='n = PV / RT'; substitution=`n = ${P} × ${V} / (${R} × ${T})`;}
+        if(u==='T'){const P=num('gP'),V=num('gV'),n=num('gn'); answer=P*V/(n*R); unit='K'; formula='T = PV / nR'; substitution=`T = ${P} × ${V} / (${n} × ${R})`;}
+      }
+      if(t==='boyle'){
+        if(u==='P2'){const P1=num('gP1'),V1=num('gV1'),V2=num('gV2'); answer=P1*V1/V2; unit='same pressure unit'; formula='P₂ = P₁V₁ / V₂'; substitution=`P₂ = ${P1} × ${V1} / ${V2}`;}
+        if(u==='V2'){const P1=num('gP1'),V1=num('gV1'),P2=num('gP2'); answer=P1*V1/P2; unit='L'; formula='V₂ = P₁V₁ / P₂'; substitution=`V₂ = ${P1} × ${V1} / ${P2}`;}
+      }
+      if(t==='charles'){
+        if(u==='V2'){const V1=num('gV1'),T1=num('gT1'),T2=num('gT2'); answer=V1*T2/T1; unit='L'; formula='V₂ = V₁T₂ / T₁'; substitution=`V₂ = ${V1} × ${T2} / ${T1}`;}
+        if(u==='T2'){const V1=num('gV1'),T1=num('gT1'),V2=num('gV2'); answer=T1*V2/V1; unit='K'; formula='T₂ = T₁V₂ / V₁'; substitution=`T₂ = ${T1} × ${V2} / ${V1}`;}
+        if(u==='V1'){const T1=num('gT1'),V2=num('gV2'),T2=num('gT2'); answer=V2*T1/T2; unit='L'; formula='V₁ = V₂T₁ / T₂'; substitution=`V₁ = ${V2} × ${T1} / ${T2}`;}
+        if(u==='T1'){const V1=num('gV1'),V2=num('gV2'),T2=num('gT2'); answer=T2*V1/V2; unit='K'; formula='T₁ = T₂V₁ / V₂'; substitution=`T₁ = ${T2} × ${V1} / ${V2}`;}
+      }
+      if(t==='combined'){
+        if(u==='V2'){const P1=num('gP1'),V1=num('gV1'),T1=num('gT1'),P2=num('gP2'),T2=num('gT2'); answer=P1*V1*T2/(T1*P2); unit='L'; formula='V₂ = P₁V₁T₂ / (T₁P₂)'; substitution=`V₂ = ${P1} × ${V1} × ${T2} / (${T1} × ${P2})`;}
+        if(u==='P2'){const P1=num('gP1'),V1=num('gV1'),T1=num('gT1'),V2=num('gV2'),T2=num('gT2'); answer=P1*V1*T2/(T1*V2); unit='same pressure unit'; formula='P₂ = P₁V₁T₂ / (T₁V₂)'; substitution=`P₂ = ${P1} × ${V1} × ${T2} / (${T1} × ${V2})`;}
+        if(u==='T2'){const P1=num('gP1'),V1=num('gV1'),T1=num('gT1'),P2=num('gP2'),V2=num('gV2'); answer=P2*V2*T1/(P1*V1); unit='K'; formula='T₂ = P₂V₂T₁ / (P₁V₁)'; substitution=`T₂ = ${P2} × ${V2} × ${T1} / (${P1} × ${V1})`;}
+        if(u==='V1'){const P1=num('gP1'),T1=num('gT1'),P2=num('gP2'),V2=num('gV2'),T2=num('gT2'); answer=P2*V2*T1/(P1*T2); unit='L'; formula='V₁ = P₂V₂T₁ / (P₁T₂)'; substitution=`V₁ = ${P2} × ${V2} × ${T1} / (${P1} × ${T2})`;}
+        if(u==='P1'){const V1=num('gV1'),T1=num('gT1'),P2=num('gP2'),V2=num('gV2'),T2=num('gT2'); answer=P2*V2*T1/(V1*T2); unit='same pressure unit'; formula='P₁ = P₂V₂T₁ / (V₁T₂)'; substitution=`P₁ = ${P2} × ${V2} × ${T1} / (${V1} × ${T2})`;}
+        if(u==='T1'){const P1=num('gP1'),V1=num('gV1'),P2=num('gP2'),V2=num('gV2'),T2=num('gT2'); answer=P1*V1*T2/(P2*V2); unit='K'; formula='T₁ = P₁V₁T₂ / (P₂V₂)'; substitution=`T₁ = ${P1} × ${V1} × ${T2} / (${P2} × ${V2})`;}
+      }
+      if(!Number.isFinite(answer)||answer<=0) throw Error('The calculated value is not physically valid. Check your inputs and units.');
+      const rounded=Number(answer.toPrecision(8));
+      const out=`<b>Formula:</b> ${formula}<br><b>Substitution:</b> ${substitution}<br><b>Answer:</b> ${rounded} ${unit}<br><small>Use Kelvin for gas-law temperatures. Keep pressure units consistent.</small>`;
+      result.innerHTML='<div class="result">'+out+'</div>';
+      localStorage.setItem('lastCalc','Gas Laws\n'+out.replace(/<[^>]+>/g,''));
+    }catch(e){result.innerHTML='<div class="result">⚠️ '+e.message+'</div>';}
+  }
   type.onchange=render; render();
 }
 
@@ -284,21 +342,108 @@ function notesUI(){
 
 
 function assistantUI(){
-  panel.innerHTML='<h2>🤖 Chemistry Assistant</h2><p class="muted">Ask a basic chemistry question. Try: “What is molarity?”, “formula for pH”, or “what is Avogadro number?”</p><textarea id="assistantQ" rows="4" placeholder="Type your chemistry question..."></textarea><button class="primary" id="assistantGo">Ask</button><div id="assistantResult" class="result"></div>';
-  const answer=(q)=>{
-    q=q.toLowerCase();
-    if(q.includes('molarity')) return '<b>Molarity</b> is moles of solute per litre of solution.<br>Formula: M = n/V.';
-    if(q.includes('molality')) return '<b>Molality</b> is moles of solute per kilogram of solvent.<br>Formula: m = n/kg solvent.';
-    if(q.includes('ph')) return '<b>pH</b> measures acidity. For a solution with [H⁺], pH = −log₁₀[H⁺].';
-    if(q.includes('poh')) return '<b>pOH</b> is related to hydroxide concentration: pOH = −log₁₀[OH⁻]. At 25°C, pH + pOH = 14.';
-    if(q.includes('avogadro')) return '<b>Avogadro’s constant</b> is 6.02214076 × 10²³ particles per mole.';
-    if(q.includes('gas law') || q.includes('pv=nrt')) return '<b>Ideal Gas Law:</b> PV = nRT. Temperature must be in kelvin.';
-    if(q.includes('molar mass')) return '<b>Molar mass</b> is the mass of one mole of a substance, usually in g/mol.';
-    if(q.includes('stoichiometry')) return '<b>Stoichiometry</b> uses balanced-equation coefficients to relate amounts of reactants and products.';
-    if(q.includes('acid') || q.includes('base')) return '<b>Acids and bases:</b> acids increase H⁺ concentration, while bases increase OH⁻ concentration in aqueous solution.';
-    return 'Try asking about molarity, molality, pH, pOH, gas laws, molar mass, stoichiometry, acids/bases, or Avogadro’s number.';
+  panel.innerHTML='<h2>🤖 Chemistry Assistant</h2><p class="muted">Ask chemistry questions across general, physical, inorganic, organic, analytical and electrochemistry topics. It can also handle many common formula/calculation questions.</p><textarea id="assistantQ" rows="5" placeholder="Example: What is oxidation? / Explain Le Chatelier’s principle / Calculate pH of 0.001 M HCl"></textarea><button class="primary" id="assistantGo">Ask Chemistry Assistant</button><div id="assistantResult" class="result"></div>';
+  const esc=x=>String(x).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  const answer=(raw)=>{
+    const q=raw.toLowerCase().replace(/[?!.]/g,' ').replace(/\s+/g,' ').trim();
+    if(!q) return '⚠️ Type a chemistry question first.';
+    const topics=[
+      [/molarity|molar concentration/, '<b>Molarity</b> is moles of solute per litre of solution. Formula: M = n/V.'],
+      [/molality/, '<b>Molality</b> is moles of solute per kilogram of solvent. Formula: m = n/kg solvent.'],
+      [/normality/, '<b>Normality</b> is equivalents of solute per litre of solution. N = equivalents/L.'],
+      [/mole fraction|mole fraction/, '<b>Mole fraction</b> is the moles of one component divided by total moles: χᵢ = nᵢ/nₜ.'],
+      [/molar mass|molecular mass/, '<b>Molar mass</b> is the mass of one mole of a substance, normally expressed in g/mol. Add the atomic masses according to the formula.'],
+      [/avogadro/, '<b>Avogadro constant</b> is 6.02214076 × 10²³ entities per mole.'],
+      [/poh|hydroxide concentration/, '<b>pOH</b> = −log₁₀[OH⁻]. At 25 °C, pH + pOH = 14.'],
+      [/\bph\b|acidity/, '<b>pH</b> measures acidity on a logarithmic scale. For aqueous solutions, pH = −log₁₀[H⁺].'],
+      [/acid|brønsted|bronsted/, '<b>Acids</b> donate H⁺ in the Brønsted–Lowry model. Strong acids ionize essentially completely in water, while weak acids establish equilibrium.'],
+      [/base|alkali/, '<b>Bases</b> accept H⁺ in the Brønsted–Lowry model. In water, many bases increase [OH⁻].'],
+      [/buffer|henderson/, '<b>Buffer</b> solutions resist large pH changes. For a conjugate acid/base pair, Henderson–Hasselbalch gives pH = pKa + log([A⁻]/[HA]).'],
+      [/ka|acid dissociation/, '<b>Ka</b> measures acid ionization at equilibrium. Larger Ka generally means a stronger acid. pKa = −log Ka.'],
+      [/kb|base dissociation/, '<b>Kb</b> measures base ionization at equilibrium. pKb = −log Kb.'],
+      [/ksp|solubility product/, '<b>Ksp</b> is the equilibrium constant for dissolution of a sparingly soluble ionic solid. Compare the ion product Qsp with Ksp to predict precipitation.'],
+      [/equilibrium|le chatelier/, '<b>Chemical equilibrium</b> is dynamic: forward and reverse reactions continue at equal rates. Le Châtelier’s principle predicts how a system responds to changes in concentration, pressure or temperature.'],
+      [/kc|equilibrium constant/, '<b>Kc</b> is written using equilibrium concentrations, with each species raised to its stoichiometric coefficient. Pure solids and liquids are omitted.'],
+      [/kp/, '<b>Kp</b> uses equilibrium partial pressures of gaseous species. Pure solids and liquids are omitted.'],
+      [/gas law|ideal gas|boyle|charles|combined gas/, '<b>Gas laws:</b> Boyle: P₁V₁=P₂V₂; Charles: V₁/T₁=V₂/T₂; combined gas law: P₁V₁/T₁=P₂V₂/T₂; ideal gas law: PV=nRT. Temperature must be in kelvin.'],
+      [/stoichiometry|mole ratio/, '<b>Stoichiometry</b> uses a balanced chemical equation and mole ratios from its coefficients to relate reactants and products.'],
+      [/limiting reactant|limiting reagent/, '<b>Limiting reactant</b> is the reactant consumed first. It determines the maximum amount of product that can form.'],
+      [/percent yield|percentage yield/, '<b>Percent yield</b> = (actual yield ÷ theoretical yield) × 100%.'],
+      [/oxidation|reduction|redox/, '<b>Redox:</b> oxidation is loss of electrons or increase in oxidation number; reduction is gain of electrons or decrease in oxidation number.'],
+      [/oxidation number|oxidation state/, '<b>Oxidation number</b> is a bookkeeping charge assigned using standard rules. The sum of oxidation numbers equals the overall charge.'],
+      [/electrolysis|faraday/, '<b>Electrolysis</b> uses electrical energy to drive a non-spontaneous redox reaction. Faraday’s laws relate charge passed to the amount of substance produced.'],
+      [/electrochemical|galvanic|voltaic|cell potential|nernst/, '<b>Electrochemical cells</b> convert chemical and electrical energy. E°cell = E°cathode − E°anode. The Nernst equation accounts for non-standard conditions.'],
+      [/enthalpy|heat of reaction|delta h/, '<b>Enthalpy change</b> describes heat absorbed or released at constant pressure. ΔH < 0 is exothermic; ΔH > 0 is endothermic.'],
+      [/calorimetry|specific heat/, '<b>Calorimetry</b> measures heat transfer. A common relation is q = mcΔT, where m is mass, c is specific heat capacity and ΔT is temperature change.'],
+      [/gibbs|free energy/, '<b>Gibbs free energy</b> relates enthalpy, entropy and temperature: ΔG = ΔH − TΔS. Under standard conditions, ΔG° < 0 indicates thermodynamic favorability.'],
+      [/entropy/, '<b>Entropy</b> measures the dispersal of energy/matter. Many spontaneous processes increase total entropy of the universe.'],
+      [/rate law|reaction rate|kinetics/, '<b>Chemical kinetics</b> studies reaction rates. A rate law commonly has the form rate = k[A]^m[B]^n, where the exponents are determined experimentally.'],
+      [/arrhenius|activation energy/, '<b>Arrhenius equation:</b> k = Ae^(−Ea/RT). Increasing temperature generally increases the rate constant for a reaction with positive activation energy.'],
+      [/half life|half-life/, '<b>Half-life</b> is the time required for a quantity to decrease to half its initial amount. For first-order decay, t½ = ln2/k.'],
+      [/beer|lambert|absorbance/, '<b>Beer–Lambert law:</b> A = εbc, relating absorbance to molar absorptivity, path length and concentration.'],
+      [/organic chemistry|organic/, '<b>Organic chemistry</b> focuses mainly on carbon compounds. Important families include alkanes, alkenes, alkynes, alcohols, aldehydes, ketones, carboxylic acids, esters and amines.'],
+      [/alkane|alkene|alkyne/, '<b>Hydrocarbons:</b> alkanes contain only single C–C bonds, alkenes contain C=C, and alkynes contain C≡C.'],
+      [/isomer|isomerism/, '<b>Isomers</b> have the same molecular formula but differ in connectivity or spatial arrangement.'],
+      [/functional group/, '<b>Functional groups</b> are characteristic atom arrangements that control many organic reactions, such as –OH in alcohols and –COOH in carboxylic acids.'],
+      [/polymer|polymerization/, '<b>Polymers</b> are large molecules made from repeating units called monomers. Polymerization can be addition or condensation.'],
+      [/periodic table|periodic trend/, '<b>Periodic trends:</b> atomic radius generally increases down a group and decreases across a period; first ionization energy generally shows the opposite trend.'],
+      [/electron configuration|electronic configuration/, '<b>Electron configuration</b> describes how electrons occupy atomic orbitals, following the Aufbau principle, Pauli exclusion principle and Hund’s rule.'],
+      [/ionic bond|covalent bond|metallic bond|bonding/, '<b>Chemical bonding:</b> ionic bonding involves electrostatic attraction between ions, covalent bonding involves shared electron pairs, and metallic bonding involves delocalized electrons in metals.'],
+      [/molecular geometry|vsepr|shape of molecule/, '<b>VSEPR theory</b> predicts molecular shape by considering repulsion between electron domains around a central atom.'],
+      [/hybridization/, '<b>Hybridization</b> is a model for combining atomic orbitals to describe bonding and geometry; common descriptions include sp, sp² and sp³.'],
+      [/concentration|dilution/, '<b>Concentration</b> can be expressed in several ways. For dilution of the same solute, C₁V₁ = C₂V₂.'],
+      [/density/, '<b>Density</b> is mass per unit volume: ρ = m/V.'],
+      [/ppm|parts per million/, '<b>ppm</b> means parts per million. For dilute aqueous solutions, 1 ppm is often approximately 1 mg/L, when the density is close to 1 kg/L.'],
+      [/significant figures|sig figs/, '<b>Significant figures</b> communicate measurement precision. In multiplication/division, the result normally follows the fewest significant figures; in addition/subtraction, it follows the least decimal places.'],
+      [/empirical formula/, '<b>Empirical formula</b> gives the simplest whole-number ratio of atoms. Convert masses or percentages to moles, divide by the smallest, then multiply ratios to obtain whole numbers.'],
+      [/molecular formula/, '<b>Molecular formula</b> gives the actual numbers of atoms in a molecule. Its molar mass is an integer multiple of the empirical-formula mass.'],
+      [/precipitation|solubility rules/, '<b>Solubility rules</b> help predict whether ionic compounds remain dissolved or form precipitates. Nitrates and most alkali-metal salts are soluble; many carbonates and hydroxides are less soluble, with important exceptions.']
+    ];
+    for(const [re,a] of topics) if(re.test(q)) return a;
+    let m=q.match(/(?:calculate|find|what is)\s+(?:the\s+)?ph\s+(?:of\s+)?(?:\[h\+\]|h\+|hydrogen ion concentration)?\s*(?:=|of)?\s*([0-9.]+(?:e[+-]?\d+)?)/i);
+    if(m){const c=Number(m[1]); if(c>0) return `<b>pH calculation</b><br>pH = −log₁₀[H⁺]<br>pH = −log₁₀(${c})<br><b>pH = ${(-Math.log10(c)).toFixed(4)}</b>`;}
+    m=q.match(/(?:calculate|find|what is)\s+(?:the\s+)?poh\s+(?:of\s+)?([0-9.]+(?:e[+-]?\d+)?)/i);
+    if(m){const c=Number(m[1]); if(c>0) return `<b>pOH calculation</b><br>pOH = −log₁₀[OH⁻]<br>pOH = −log₁₀(${c})<br><b>pOH = ${(-Math.log10(c)).toFixed(4)}</b>`;}
+    return `I can answer a broad range of chemistry topics, but I don't have an internet-connected universal chemistry database inside the app. Try including the exact topic, formula, equation or numbers. For example: “Explain SN1 vs SN2”, “What is Ksp?”, “Calculate pH of 1×10⁻³ M HCl”, “Explain hybridization”, or “What is the difference between oxidation and reduction?”`;
   };
-  document.getElementById('assistantGo').onclick=()=>{const q=document.getElementById('assistantQ').value.trim();document.getElementById('assistantResult').innerHTML=q?answer(q):'⚠️ Type a chemistry question first.';};
+  document.getElementById('assistantGo').onclick=()=>{const q=document.getElementById('assistantQ').value.trim();document.getElementById('assistantResult').innerHTML=answer(q);};
+}
+
+function practiceUI(){
+  const qs=[
+    ['What is the molar mass of H₂O?',['16.00 g/mol','18.015 g/mol','20.00 g/mol','22.015 g/mol'],'B'],
+    ['What is the pH of 1.0 × 10⁻³ M HCl, assuming complete dissociation?',['2.00','3.00','11.00','13.00'],'B'],
+    ['Which quantity is measured in mol/L?',['Molality','Molarity','Mole fraction','Density'],'B'],
+    ['Which gas-law relationship applies when temperature is constant?',['Charles’s law','Boyle’s law','Avogadro’s law','Dalton’s law'],'B'],
+    ['What is oxidation?',['Gain of electrons','Loss of electrons','Gain of protons only','Loss of neutrons'],'B'],
+    ['What does a catalyst do?',['Raises activation energy','Lowers activation energy for the reaction pathway','Changes equilibrium constant','Gets consumed completely'],'B'],
+    ['Which particle determines the atomic number?',['Neutron','Electron','Proton','Nucleus as a whole'],'C'],
+    ['For a first-order reaction, the half-life is:',['Dependent on initial concentration','ln2/k','k/ln2','Always 1 second'],'B'],
+    ['What is the formula for density?',['ρ = V/m','ρ = m/V','ρ = n/V','ρ = PV/n'],'B'],
+    ['A solution with pH 2 is:',['More acidic than pH 5','More basic than pH 5','Neutral','Always a strong base'],'A']
+  ];
+  let n=0,score=0; panel.innerHTML='<h2>📝 Practice</h2><p class="muted">10 chemistry practice questions. Choose an answer and get immediate feedback.</p><div id="pq"></div><div id="ps"></div>';
+  const render=()=>{if(n>=qs.length){document.getElementById('pq').innerHTML=`<div class="result"><b>Practice complete!</b><br>Score: ${score}/${qs.length}</div>`;return;} const [q,opts,key]=qs[n]; document.getElementById('pq').innerHTML=`<h3>${n+1}. ${q}</h3>`+opts.map((o,i)=>`<button class="qopt" data-v="${String.fromCharCode(65+i)}">${String.fromCharCode(65+i)}. ${o}</button>`).join('')+'<div id="pf" class="result"></div>'; document.querySelectorAll('.qopt').forEach(b=>b.onclick=()=>{const ok=b.dataset.v===key;if(ok)score++;document.getElementById('pf').innerHTML=ok?'✅ Correct!':'❌ Not quite. Try the next one.';setTimeout(()=>{n++;render()},650);});}; render();
+}
+function advancedQuizUI(){
+  const qs=[
+    ['For the reaction N₂ + 3H₂ ⇌ 2NH₃, increasing pressure favors which side?',['Reactants','Products','Neither','Only the catalyst side'],'B'],
+    ['Which equation is the ideal gas law?',['PV=nRT','P=V/nRT','PV=T/nR','P=nV/RT'],'A'],
+    ['If Ka increases, acid strength generally:',['Decreases','Increases','Becomes neutral','Cannot change'],'B'],
+    ['At 25°C, a neutral aqueous solution has pH:',['0','7','10','14'],'B'],
+    ['Which species is oxidized in a redox reaction?',['The electron acceptor','The species that loses electrons','The catalyst','The solvent'],'B'],
+    ['For an exothermic reaction, ΔH is:',['Positive','Negative','Always zero','Undefined'],'B'],
+    ['What does Ksp describe?',['Gas pressure','Dissolution equilibrium of a sparingly soluble solid','Reaction rate','Heat capacity'],'B'],
+    ['Which equation describes a buffer approximately?',['pH=pKa+log([A⁻]/[HA])','PV=nRT','q=mcΔT','E=mc²'],'A'],
+    ['What is the oxidation number of oxygen in most oxides?',['+2','−2','0','−1'],'B'],
+    ['Which factor usually increases the rate constant k in the Arrhenius equation?',['Lowering temperature','Increasing temperature','Removing all reactants','Making activation energy infinite'],'B']
+  ];
+  let n=0,score=0; panel.innerHTML='<h2>🎯 Advanced Quiz</h2><p class="muted">10 mixed higher-level chemistry questions.</p><div id="aq"></div>';
+  const render=()=>{if(n>=qs.length){document.getElementById('aq').innerHTML=`<div class="result"><b>Advanced Quiz complete!</b><br>Score: ${score}/${qs.length}</div>`;return;}const [q,opts,key]=qs[n];document.getElementById('aq').innerHTML=`<h3>${n+1}. ${q}</h3>`+opts.map((o,i)=>`<button class="qopt" data-v="${String.fromCharCode(65+i)}">${String.fromCharCode(65+i)}. ${o}</button>`).join('')+'<div id="af" class="result"></div>';document.querySelectorAll('.qopt').forEach(b=>b.onclick=()=>{const ok=b.dataset.v===key;if(ok)score++;document.getElementById('af').innerHTML=ok?'✅ Correct!':'❌ Incorrect. Review the concept in Notes or Search & Formulas.';setTimeout(()=>{n++;render()},700);});};render();
+}
+function showWorkingUI(){
+  panel.innerHTML='<h2>💡 Show Working</h2><p class="muted">Turn detailed working on or off. When enabled, calculators should show the formula, substitution and final answer.</p><button class="primary" id="workToggle"></button><div class="result"><b>Example: Molarity</b><br>Given n = 0.50 mol and V = 2.0 L<br>Formula: M = n/V<br>Substitution: M = 0.50/2.0<br>Answer: <b>0.25 mol/L</b></div>';
+  const b=document.getElementById('workToggle'); const sync=()=>{let on=localStorage.getItem('showWorking')!=='0';b.textContent=on?'💡 Show Working: ON':'💡 Show Working: OFF';}; b.onclick=()=>{localStorage.setItem('showWorking',localStorage.getItem('showWorking')==='0'?'1':'0');sync();};sync();
 }
 
 function reactionLabUI(){
@@ -321,7 +466,7 @@ function dataLabUI(){
   };
 }
 
-function open(i){if(i===0)return gasLawsUI();if(i===1)return balanceUI();if(i===2||i===10)return panel.innerHTML='<h2>📝 Practice</h2><div class="note">What is the molar mass of H₂O?</div><button class="primary" onclick="this.nextElementSibling.textContent=\'18.015 g/mol\'">Show Answer</button><div class="result"></div>';if(i===3)return periodicUI();if(i===4)return calc('🧮 Molar Mass','<input id="f" placeholder="H2O"><p class="muted">Use formulas such as H2O, NaCl, H2SO4.</p>',()=>{let f=document.getElementById('f').value.trim();let m={H:1.008,O:15.999,Na:22.990,Cl:35.45,S:32.06,C:12.011,Ca:40.078};let a=f.match(/([A-Z][a-z]?)(\d*)/g)||[];let total=0;for(let z of a){let q=z.match(/([A-Z][a-z]?)(\d*)/),n=+(q[2]||1);if(!m[q[1]])throw Error('Element not in this quick parser.');total+=m[q[1]]*n}return 'Molar mass = '+total.toFixed(3)+' g/mol'});if(i===5)return calc('🔬 Moles',inp('a','Mass (g)')+inp('b','Molar mass (g/mol)'),()=>`n = ${v('a')}/${v('b')} = <b>${(v('a')/v('b')).toFixed(4)} mol</b>`);if(i===6)return panel.innerHTML='<h2>💾 Saved</h2><div class="result">'+(localStorage.getItem('lastCalc')||'No saved calculation yet.')+'</div>';if(i===7)return panel.innerHTML='<h2>📊 Progress</h2><div class="result">Your latest calculation is saved locally on this device.</div>';if(i===8)return notesUI();if(i===9){document.body.style.background='#111722';document.querySelectorAll('button,input,.panel').forEach(x=>{x.style.background='#1b2230';x.style.color='#fff';x.style.borderColor='#39445a'});return}if(i===11)return list('🧩 Formula Builder',formulas,x=>panel.innerHTML='<h2>🧩 Formula Builder</h2><div class="result">'+x+'</div>');if(i===12)return calculators70Home();if(i===14)return list('🧮 More Calculators — Step 2',more,simple);if(i===13)return panel.innerHTML='<h2>💡 Show Working</h2><div class="result">Each calculator shows its formula, substitution and final answer where applicable.</div>';if(i===15)return list('🚀 ChemCalc 5.6 — Advanced Tools',adv,advanced);if(i===16)return searchForm();if(i===17)return assistantUI();if(i===18)return reactionLabUI();if(i===19)return dataLabUI();if(i===20)return new70List()}
+function open(i){if(i===0)return gasLawsUI();if(i===1)return balanceUI();if(i===2)return practiceUI();if(i===10)return advancedQuizUI();if(i===3)return periodicUI();if(i===4)return calc('🧮 Molar Mass','<input id="f" placeholder="H2O"><p class="muted">Use formulas such as H2O, NaCl, H2SO4.</p>',()=>{let f=document.getElementById('f').value.trim();let m={H:1.008,O:15.999,Na:22.990,Cl:35.45,S:32.06,C:12.011,Ca:40.078};let a=f.match(/([A-Z][a-z]?)(\d*)/g)||[];let total=0;for(let z of a){let q=z.match(/([A-Z][a-z]?)(\d*)/),n=+(q[2]||1);if(!m[q[1]])throw Error('Element not in this quick parser.');total+=m[q[1]]*n}return 'Molar mass = '+total.toFixed(3)+' g/mol'});if(i===5)return calc('🔬 Moles',inp('a','Mass (g)')+inp('b','Molar mass (g/mol)'),()=>`n = ${v('a')}/${v('b')} = <b>${(v('a')/v('b')).toFixed(4)} mol</b>`);if(i===6)return panel.innerHTML='<h2>💾 Saved</h2><div class="result">'+(localStorage.getItem('lastCalc')||'No saved calculation yet.')+'</div>';if(i===7)return panel.innerHTML='<h2>📊 Progress</h2><div class="result">Your latest calculation is saved locally on this device.</div>';if(i===8)return notesUI();if(i===9){document.body.style.background='#111722';document.querySelectorAll('button,input,.panel').forEach(x=>{x.style.background='#1b2230';x.style.color='#fff';x.style.borderColor='#39445a'});return}if(i===11)return list('🧩 Formula Builder',formulas,x=>panel.innerHTML='<h2>🧩 Formula Builder</h2><div class="result">'+x+'</div>');if(i===12)return calculators70Home();if(i===14)return list('🧮 More Calculators — Step 2',more,simple);if(i===13)return showWorkingUI();if(i===15)return list('🚀 ChemCalc 5.6 — Advanced Tools',adv,advanced);if(i===16)return searchForm();if(i===17)return assistantUI();if(i===18)return reactionLabUI();if(i===19)return dataLabUI();if(i===20)return new70List()}
 
 function new70List(){
   return list('🧮 10 New Calculators — ChemCalc 7.0',new70,new70Calc);
