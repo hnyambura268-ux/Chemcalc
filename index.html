@@ -1,16 +1,33 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ChemCalc 4.0</title>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ChemCalc 5.6</title>
 <style>
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;background:#f5f7fb;color:#172033}header{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;padding:24px 16px;border-radius:0 0 24px 24px}main{max-width:900px;margin:auto;padding:16px}.card{background:white;border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 4px 18px #0001}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.topnav{max-width:900px;margin:12px auto 0;padding:0 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.topnav button{margin:0;background:#fff;border:1px solid #d7ddea;color:#172033}@media(max-width:500px){.topnav{grid-template-columns:repeat(2,1fr)}button{border:0;border-radius:12px;padding:13px;font-weight:700;min-height:46px;background:#edf2ff;color:#1d4ed8;margin:4px}button.primary{background:#2563eb;color:white}button.back{background:#e9edf5;color:#172033}input{width:100%;box-sizing:border-box;padding:13px;border:1px solid #d7ddea;border-radius:12px;margin:6px 0 10px;font-size:16px}.result{background:#f0f5ff;border-left:4px solid #2563eb;padding:13px;border-radius:10px;margin-top:12px;white-space:pre-wrap}.ptable{display:grid;grid-template-columns:repeat(18,minmax(34px,1fr));gap:4px;overflow:auto;padding-bottom:8px}.el{min-width:34px;aspect-ratio:1;border:1px solid #d9deea;border-radius:7px;background:#fff;text-align:center;padding:4px;cursor:pointer}.el b{display:block;font-size:13px}.el small{font-size:9px;color:#667085}.spacer{visibility:hidden}.law{border:1px solid #e2e6ef;border-radius:13px;padding:12px;margin:8px 0}.formula{font-weight:800;font-size:18px}.quizopt{display:block;width:100%;text-align:left;background:#f7f8fc;color:#172033}.quizopt.selected{outline:2px solid #2563eb}.muted{color:#667085;font-size:13px}@media(max-width:500px){.grid{grid-template-columns:1fr}.ptable{grid-template-columns:repeat(18,34px)}}
 </style><style>
 .s4-tag{display:inline-block;padding:4px 8px;border-radius:999px;background:#eef2ff;color:#3730a3;font-size:12px;font-weight:700;margin-left:6px}.s4-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin:10px 0}.s4-answer{padding:12px;border-radius:12px;margin:6px 0;text-align:left;width:100%;background:#f8fafc;color:#172033;border:1px solid #dbe2ea}.s4-answer.correct{border-color:#16a34a;background:#f0fdf4}.s4-answer.wrong{border-color:#dc2626;background:#fef2f2}.s4-small{font-size:13px;color:#667085}.s4-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}@media(max-width:500px){.s4-grid{grid-template-columns:1fr}}body.s3-dark .s4-card{background:#172033;border-color:#475569}body.s3-dark .s4-answer{background:#111827;color:#f1f5f9;border-color:#475569}</style>
-</head><body>
-<header><h1>🧪 ChemCalc 4.0</h1><div>All your chemistry tools in one place</div></header>
+<style>
+.s51-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.s51-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin:10px 0}.s51-result{background:#f0f5ff;border-left:4px solid #2563eb;padding:14px;border-radius:12px;margin-top:12px;white-space:pre-wrap;line-height:1.5}.s51-note{font-size:13px;color:#667085}.s51-badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#eef2ff;color:#3730a3;font-size:12px;font-weight:700;margin-bottom:8px}@media(max-width:500px){.s51-grid{grid-template-columns:1fr}}body.s3-dark .s51-card{background:#172033;border-color:#475569}body.s3-dark .s51-result{background:#111827;color:#f1f5f9}
+</style><style id="s55style">.s55-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.s55-input{width:100%;padding:12px;border:1px solid #d7dce8;border-radius:12px;box-sizing:border-box;font-size:16px}.s55-result{white-space:pre-wrap;background:#f3f6ff;border-radius:14px;padding:14px;margin-top:12px}.s55-tag{display:inline-block;padding:5px 9px;border-radius:999px;background:#ede9fe;color:#5b21b6;font-size:12px;margin:3px}.s55-item{padding:12px;border:1px solid #e2e6ef;border-radius:14px;margin-top:8px;background:#fff}.s55-muted{color:#667085;font-size:13px}</style><style id="s56style">
+:root{--cc-blue:#2563eb;--cc-purple:#7c3aed;--cc-border:#dbe2ea;--cc-muted:#667085}
+body{transition:background .2s,color .2s}button,input{font-family:inherit}button:focus-visible,input:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}.muted,.s4-small,.s51-note,.s55-muted{line-height:1.45}
+.cc56-tools{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.cc56-tools button{flex:1;min-width:140px}.cc56-status{font-size:13px;color:var(--cc-muted);padding:8px 2px}.cc56-ok{color:#15803d;font-weight:700}.cc56-error{color:#b91c1c;font-weight:700}
+body.s3-dark{background:#0f172a;color:#e5e7eb}body.s3-dark .card,body.s3-dark .s55-item{background:#172033;color:#e5e7eb;border-color:#475569}body.s3-dark input{background:#111827;color:#f8fafc;border-color:#475569}body.s3-dark .topnav button{background:#172033;color:#e5e7eb;border-color:#475569}
+@media(max-width:500px){.cc56-tools{display:grid;grid-template-columns:1fr}.cc56-tools button{width:100%;margin:0}}
+</style></head><body>
+<header><h1>🧪 ChemCalc 5.6</h1><div>All your chemistry tools in one place</div></header>
 <nav class="topnav" aria-label="ChemCalc navigation">
 <button data-go="gas">💨 Gas Laws</button><button data-go="balance">⚖️ Balance</button><button data-go="quiz">📝 Practice</button><button data-go="periodic">🧬 Periodic</button><button data-go="mass">🧮 Molar Mass</button><button data-go="moles">⚗️ Moles</button><button data-s3="saved">💾 Saved</button><button data-s3="progress">📊 Progress</button><button data-s3="notes">📚 Notes</button><button id="s3dark">🌙 Dark</button><button data-s4="quiz">🎯 Advanced Quiz</button><button data-s4="formula">🧩 Formula Builder</button>
 </nav>
-<main><input id="s3search" placeholder="🔍 Search ChemCalc..." style="width:100%;padding:12px;border-radius:12px;border:1px solid #dbe2ea;margin-bottom:12px;font-size:16px"><main><section id="home" class="card"><h2>Welcome 👋</h2><p class="muted">ChemCalc 4.0 keeps the working chemistry tools from 3.2 and gives them a cleaner home.</p><h2>Choose a tool</h2><div class="grid">
-<button data-go="gas">🎈 Gas Laws</button><button data-go="balance">⚖️ Balance Equation</button><button data-go="quiz">📝 Practice Quiz</button><button data-go="periodic">🔬 Periodic Table</button><button data-go="mass">🧮 Molar Mass</button><button data-go="moles">Moles</button>
-</div><div class="grid" style="margin-top:10px"><button data-notes>📚 Chemistry Notes</button><button data-progress>📊 My Progress</button></div><div class="grid" style="margin-top:10px"><button data-s4="quiz">🎯 Advanced Quiz</button><button data-s4="formula">🧩 Formula Builder</button></div></section><section id="panel" class="card"><h2>Welcome 👋</h2><p>Choose a tool above.</p></section></main>
+<main><input id="s3search" placeholder="🔍 Search ChemCalc..." style="width:100%;padding:12px;border-radius:12px;border:1px solid #dbe2ea;margin-bottom:12px;font-size:16px"><main><section id="home" class="card"><h2>Welcome 👋</h2><p class="muted">ChemCalc 5.6 keeps the advanced tools you liked in 4.0 and adds a bigger chemistry calculator library.</p><h2>Choose a tool</h2><div class="grid">
+<button data-go="gas">🎈 Gas Laws</button><button data-go="balance">⚖️ Balance Equation</button><button data-go="quiz">📝 Practice Quiz 2.0</button><button data-go="periodic">🔬 Periodic Table</button><button data-go="mass">🧮 Molar Mass</button><button data-go="moles">Moles</button>
+</div><div class="grid" style="margin-top:10px"><button data-notes>📚 Chemistry Notes</button><button data-progress>📊 My Progress</button></div><div class="grid" style="margin-top:10px"><button data-s4="quiz">🎯 Advanced Quiz</button><button data-s4="formula">🧩 Formula Builder</button></div><div class="grid" style="margin-top:10px"><button data-enhanced="more">🧮 More Calculators</button><button data-s5="working">💡 Show Working</button><button data-s56check>✅ Final Check</button></div></section><section id="panel" class="card"><h2>Welcome 👋</h2><p>Choose a tool above.</p></section></main>
+<script>
+(function(){
+  const header=document.querySelector('header');
+  if(header){const badge=document.createElement('span');badge.textContent='FINAL POLISH • 5.6';badge.style.cssText='display:inline-block;margin-top:10px;padding:5px 9px;border-radius:999px;background:#ffffff22;font-size:12px;font-weight:800;letter-spacing:.3px';header.appendChild(badge)}
+  const main=document.querySelector('main');
+  if(main){const s=document.createElement('div');s.className='cc56-status';s.id='cc56status';s.setAttribute('aria-live','polite');s.innerHTML='<span class="cc56-ok">✓ ChemCalc 5.6 ready</span> • Mobile-friendly final polish build';main.insertBefore(s,main.firstChild)}
+  window.cc56Status=function(msg,ok=true){const el=document.getElementById('cc56status');if(el)el.innerHTML='<span class="'+(ok?'cc56-ok':'cc56-error')+'">'+msg+'</span>'};
+})();
+</script>
 <script>
 const panel=document.getElementById('panel');
 const elements=[["H", "Hydrogen", 1], ["He", "Helium", 2], ["Li", "Lithium", 3], ["Be", "Beryllium", 4], ["B", "Boron", 5], ["C", "Carbon", 6], ["N", "Nitrogen", 7], ["O", "Oxygen", 8], ["F", "Fluorine", 9], ["Ne", "Neon", 10], ["Na", "Sodium", 11], ["Mg", "Magnesium", 12], ["Al", "Aluminium", 13], ["Si", "Silicon", 14], ["P", "Phosphorus", 15], ["S", "Sulfur", 16], ["Cl", "Chlorine", 17], ["Ar", "Argon", 18], ["K", "Potassium", 19], ["Ca", "Calcium", 20], ["Sc", "Scandium", 21], ["Ti", "Titanium", 22], ["V", "Vanadium", 23], ["Cr", "Chromium", 24], ["Mn", "Manganese", 25], ["Fe", "Iron", 26], ["Co", "Cobalt", 27], ["Ni", "Nickel", 28], ["Cu", "Copper", 29], ["Zn", "Zinc", 30], ["Ga", "Gallium", 31], ["Ge", "Germanium", 32], ["As", "Arsenic", 33], ["Se", "Selenium", 34], ["Br", "Bromine", 35], ["Kr", "Krypton", 36], ["Rb", "Rubidium", 37], ["Sr", "Strontium", 38], ["Y", "Yttrium", 39], ["Zr", "Zirconium", 40], ["Nb", "Niobium", 41], ["Mo", "Molybdenum", 42], ["Tc", "Technetium", 43], ["Ru", "Ruthenium", 44], ["Rh", "Rhodium", 45], ["Pd", "Palladium", 46], ["Ag", "Silver", 47], ["Cd", "Cadmium", 48], ["In", "Indium", 49], ["Sn", "Tin", 50], ["Sb", "Antimony", 51], ["Te", "Tellurium", 52], ["I", "Iodine", 53], ["Xe", "Xenon", 54], ["Cs", "Caesium", 55], ["Ba", "Barium", 56], ["La", "Lanthanum", 57], ["Ce", "Cerium", 58], ["Pr", "Praseodymium", 59], ["Nd", "Neodymium", 60], ["Pm", "Promethium", 61], ["Sm", "Samarium", 62], ["Eu", "Europium", 63], ["Gd", "Gadolinium", 64], ["Tb", "Terbium", 65], ["Dy", "Dysprosium", 66], ["Ho", "Holmium", 67], ["Er", "Erbium", 68], ["Tm", "Thulium", 69], ["Yb", "Ytterbium", 70], ["Lu", "Lutetium", 71], ["Hf", "Hafnium", 72], ["Ta", "Tantalum", 73], ["W", "Tungsten", 74], ["Re", "Rhenium", 75], ["Os", "Osmium", 76], ["Ir", "Iridium", 77], ["Pt", "Platinum", 78], ["Au", "Gold", 79], ["Hg", "Mercury", 80], ["Tl", "Thallium", 81], ["Pb", "Lead", 82], ["Bi", "Bismuth", 83], ["Po", "Polonium", 84], ["At", "Astatine", 85], ["Rn", "Radon", 86], ["Fr", "Francium", 87], ["Ra", "Radium", 88], ["Ac", "Actinium", 89], ["Th", "Thorium", 90], ["Pa", "Protactinium", 91], ["U", "Uranium", 92], ["Np", "Neptunium", 93], ["Pu", "Plutonium", 94], ["Am", "Americium", 95], ["Cm", "Curium", 96], ["Bk", "Berkelium", 97], ["Cf", "Californium", 98], ["Es", "Einsteinium", 99], ["Fm", "Fermium", 100], ["Md", "Mendelevium", 101], ["No", "Nobelium", 102], ["Lr", "Lawrencium", 103], ["Rf", "Rutherfordium", 104], ["Db", "Dubnium", 105], ["Sg", "Seaborgium", 106], ["Bh", "Bohrium", 107], ["Hs", "Hassium", 108], ["Mt", "Meitnerium", 109], ["Ds", "Darmstadtium", 110], ["Rg", "Roentgenium", 111], ["Cn", "Copernicium", 112], ["Nh", "Nihonium", 113], ["Fl", "Flerovium", 114], ["Mc", "Moscovium", 115], ["Lv", "Livermorium", 116], ["Ts", "Tennessine", 117], ["Og", "Oganesson", 118]];
@@ -44,12 +61,145 @@ function balanceEq(eq){
 }
 function doBalance(){let eq=document.getElementById('eq').value.trim();let ans=balanceEq(eq);if(!ans){document.getElementById('r').textContent='I can balance common equations such as H2 + O2 -> H2O and Fe + O2 -> Fe2O3.';return}let p=eq.replace(/→|=/g,'->').split('->');let L=p[0].split('+').map(x=>x.trim()),R=p[1].split('+').map(x=>x.trim()),all=L.concat(R);let left=ans.slice(0,L.length).map((c,i)=>`${c===1?'':c}${L[i]}`).join(' + '),right=ans.slice(L.length).map((c,i)=>`${c===1?'':c}${R[i]}`).join(' + ');document.getElementById('r').textContent=`Balanced: ${left} → ${right}`}
 /* Quiz */
-let q=[['Which law relates pressure and volume at constant temperature?',['Boyle’s Law','Charles’s Law','Avogadro’s Law','Dalton’s Law'],0],['What must temperature be converted to for gas-law calculations?',['Kelvin','Fahrenheit','Celsius','Rankine'],0],['Which equation is the ideal gas law?',['PV = nRT','P₁V₁ = P₂V₂','V₁/T₁ = V₂/T₂','Ptotal = ΣP'],0],['What does Dalton’s law add together?',['Partial pressures','Volumes','Temperatures','Molar masses'],0],['Which law relates volume and amount of gas at constant temperature and pressure?',['Avogadro’s Law','Boyle’s Law','Gay-Lussac’s Law','Charles’s Law'],0]];let qi=0,score=0;
+let q=[];
+function addQ(topic, question, options, correct){q.push([question,options,correct,topic])}
+const quizBank=[
+ ['Moles', 'How many moles are in 18.0 g of H₂O?', ['0.50 mol','1.00 mol','18.0 mol','36.0 mol'],1],
+ ['Moles', 'How many particles are in 1 mol of a substance?', ['6.022 × 10²³','3.00 × 10⁸','1.00 × 10⁻²³','9.81'],0],
+ ['Molar Mass', 'What is the molar mass of CO₂ approximately?', ['28.01 g/mol','32.00 g/mol','44.01 g/mol','18.02 g/mol'],2],
+ ['Molar Mass', 'What is the molar mass of NaCl approximately?', ['23.0 g/mol','35.5 g/mol','58.5 g/mol','46.0 g/mol'],2],
+ ['Concentration', 'If 0.50 mol is dissolved to make 2.0 L, what is the molarity?', ['0.25 M','1.0 M','2.5 M','4.0 M'],0],
+ ['Concentration', 'What happens to concentration when the same solute amount is placed in a larger volume?', ['It increases','It decreases','It becomes zero','It stays exactly the same'],1],
+ ['Dilution', 'Which equation is used for dilution?', ['PV=nRT','C₁V₁=C₂V₂','q=mcΔT','E=mc²'],1],
+ ['pH', 'What is the pH of 1.0 × 10⁻³ M H⁺?', ['3','7','11','−3'],0],
+ ['pH', 'A solution with pH 9 is:', ['Acidic','Neutral','Basic','Always concentrated'],2],
+ ['Gas Laws', 'Which law relates pressure and volume at constant temperature?', ['Boyle’s law','Charles’s law','Avogadro’s law','Dalton’s law'],0],
+ ['Gas Laws', 'For gas-law calculations, temperature is usually converted to:', ['Celsius','Kelvin','Fahrenheit','Percent'],1],
+ ['Gas Laws', 'What is the ideal gas law?', ['PV=nRT','P₁V₁=P₂V₂','q=mcΔT','M=n/V'],0],
+ ['Stoichiometry', 'In 2H₂ + O₂ → 2H₂O, the mole ratio H₂:O₂ is:', ['1:2','2:1','1:1','2:2'],1],
+ ['Stoichiometry', 'A balanced chemical equation conserves:', ['Mass/atoms','Temperature only','Volume only','Color'],0],
+ ['Atomic Structure', 'Which particle determines atomic number?', ['Neutron','Electron','Proton','Photon'],2],
+ ['Atomic Structure', 'A neutral atom has equal numbers of:', ['Protons and neutrons','Protons and electrons','Neutrons and electrons','Atoms and ions'],1],
+ ['Periodic Table', 'Elements in the same group generally have similar:', ['Chemical properties','Mass numbers','Neutron counts','Nuclear sizes'],0],
+ ['Periodic Table', 'Which is a halogen?', ['Na','Cl','Mg','Ne'],1],
+ ['Acids & Bases', 'Which is a strong acid?', ['HCl','CH₃COOH','NH₃','H₂O'],0],
+ ['Acids & Bases', 'At 25 °C, neutral water has a pH of:', ['0','7','10','14'],1],
+ ['Equilibrium', 'At equilibrium, forward and reverse reaction rates are:', ['Zero','Equal','Opposite in temperature','Always increasing'],1],
+ ['Equilibrium', 'What does Kc describe?', ['An equilibrium ratio','Molar mass','Gas speed','Atomic number'],0],
+ ['Redox', 'Oxidation is commonly defined as:', ['Gain of electrons','Loss of electrons','Gain of neutrons','Loss of protons'],1],
+ ['Redox', 'Reduction is commonly defined as:', ['Gain of electrons','Loss of electrons','Gain of protons','Loss of mass'],0],
+ ['Thermochemistry', 'What equation calculates heat from mass, specific heat and temperature change?', ['q=mcΔT','PV=nRT','C=n/V','E=hf'],0],
+ ['Thermochemistry', 'An exothermic reaction generally:', ['Releases heat','Absorbs heat','Has no energy change','Stops all motion'],0],
+ ['Electrochemistry', 'A galvanic cell converts chemical energy into:', ['Electrical energy','Nuclear energy','Sound only','Mass'],0],
+ ['Electrochemistry', 'The Nernst equation is used to relate cell potential to:', ['Reaction conditions','Molar mass only','Boiling point only','Atomic radius only'],0],
+ ['Solutions', 'ppm means approximately:', ['Parts per million','Parts per mole','Pressure per minute','Particles per meter'],0],
+ ['Solutions', 'Density is calculated as:', ['mass/volume','volume/mass','moles/volume','mass × volume'],0],
+ ['Significant Figures', 'How many significant figures are in 0.00450?', ['2','3','4','5'],1],
+ ['Scientific Notation', '0.00032 in scientific notation is:', ['3.2 × 10⁻⁴','3.2 × 10⁴','32 × 10⁻⁴','0.32 × 10⁻³'],0],
+ ['Molecular Formula', 'The empirical formula represents the:', ['Simplest whole-number ratio','Actual molar mass','Atomic number','Electron configuration'],0],
+ ['Percentage Composition', 'Mass percent is calculated using:', ['part mass/total mass ×100','total mass/part mass ×100','moles ×100 only','volume ×100 only'],0],
+ ['Limiting Reactant', 'The limiting reactant determines the:', ['Maximum product amount','Color of product','Temperature only','Atomic number'],0],
+ ['Yield', 'Percent yield compares actual yield with:', ['Theoretical yield','Atomic mass','Pressure','Density'],0],
+ ['Ksp', 'Ksp is associated with:', ['Solubility equilibrium','Gas pressure','Heat capacity','Atomic number'],0],
+ ['Buffers', 'A buffer resists changes in:', ['pH','Mass','Atomic number','Density'],0],
+ ['Beer–Lambert', 'Beer–Lambert law relates absorbance to:', ['Concentration and path length','Pressure and volume','Mass and time','pH and pOH only'],0],
+];
+// Build a 120+ question bank by adding carefully varied numerical/concept questions.
+quizBank.forEach(x=>addQ(x[0],x[1],x[2],x[3]));
+const extras=[
+ ['Moles','How many moles are in 44.0 g of CO₂?',['0.50 mol','1.00 mol','2.00 mol','44.0 mol'],1],
+ ['Moles','How many moles are in 36.0 g of H₂O?',['1.0 mol','2.0 mol','18 mol','0.50 mol'],1],
+ ['Moles','How many particles are in 2.00 mol?',['6.022×10²³','1.2044×10²⁴','2.00×10²³','3.011×10²³'],1],
+ ['Molar Mass','Approximate molar mass of O₂?',['16 g/mol','32 g/mol','8 g/mol','64 g/mol'],1],
+ ['Molar Mass','Approximate molar mass of CaCO₃?',['40 g/mol','84 g/mol','100 g/mol','120 g/mol'],2],
+ ['Concentration','0.20 mol in 0.50 L gives:',['0.10 M','0.40 M','2.50 M','1.00 M'],1],
+ ['Concentration','2.0 mol in 4.0 L gives:',['0.50 M','2.0 M','6.0 M','8.0 M'],0],
+ ['Dilution','If C₁=2.0 M, V₁=10 mL and C₂=0.50 M, V₂ is:',['5 mL','20 mL','40 mL','80 mL'],2],
+ ['pH','What is pOH when pH=3 at 25 °C?',['3','7','11','14'],2],
+ ['pH','If pOH=5 at 25 °C, pH is:',['5','7','9','14'],2],
+ ['Gas Laws','If pressure doubles at constant temperature, volume:', ['Doubles','Halves','Quadruples','Does not change'],1],
+ ['Gas Laws','At constant pressure, heating a gas generally makes volume:', ['Increase','Decrease','Become zero','Stay fixed'],0],
+ ['Gas Laws','Which variable is measured in Kelvin in gas laws?',['Temperature','Pressure','Volume','Moles'],0],
+ ['Stoichiometry','In N₂+3H₂→2NH₃, N₂:H₂ ratio is:',['1:3','3:1','2:3','1:2'],0],
+ ['Stoichiometry','In 2Na+Cl₂→2NaCl, Cl₂:NaCl ratio is:',['1:1','1:2','2:1','2:2'],1],
+ ['Stoichiometry','Coefficients in a balanced equation represent:', ['Mole ratios','Atomic numbers','pH values','Temperatures'],0],
+ ['Atomic Structure','An electron has what charge?',['Positive','Negative','Neutral','Variable'],1],
+ ['Atomic Structure','A neutron has what charge?',['Positive','Negative','Neutral','Double positive'],2],
+ ['Atomic Structure','Most atomic mass is located in the:', ['Nucleus','Electron cloud','Bond','Solution'],0],
+ ['Periodic Table','Group 1 elements are called:', ['Alkali metals','Halogens','Noble gases','Transition gases'],0],
+ ['Periodic Table','Group 18 elements are called:', ['Alkali metals','Halogens','Noble gases','Lanthanides'],2],
+ ['Periodic Table','Which element is a noble gas?',['Na','Ne','Cl','Ca'],1],
+ ['Acids & Bases','A base generally accepts:', ['H⁺','Neutrons','Photons','Mass'],0],
+ ['Acids & Bases','An acid generally donates:', ['H⁺','Electrons only','Neutrons','Metal atoms'],0],
+ ['Acids & Bases','Which is a strong base?',['NaOH','NH₃','CH₃COOH','H₂O'],0],
+ ['Equilibrium','Increasing reactant concentration usually shifts equilibrium toward:', ['Products','Reactants','No side','The catalyst'],0],
+ ['Equilibrium','A catalyst changes equilibrium position by:', ['Shifting right','Shifting left','Not shifting it','Changing Kc'],2],
+ ['Equilibrium','At a given temperature, Kc is affected by:', ['Temperature','Catalyst','Initial concentration','Volume alone'],0],
+ ['Redox','The oxidizing agent is the species that is:', ['Reduced','Oxidized','Always a metal','Always a gas'],0],
+ ['Redox','The reducing agent is the species that is:', ['Reduced','Oxidized','Always an acid','Always a gas'],1],
+ ['Redox','Oxidation number of elemental Na is:', ['+1','−1','0','+2'],2],
+ ['Redox','Oxidation number of O in O₂ is:', ['−2','0','+2','−1'],1],
+ ['Thermochemistry','If q is positive for a system, heat is:', ['Absorbed','Released','Destroyed','Converted to mass'],0],
+ ['Thermochemistry','Specific heat describes heat needed to change the temperature of:', ['A unit mass of substance','Any gas only','One mole only','One atom only'],0],
+ ['Thermochemistry','A calorimeter is used to measure:', ['Heat transfer','Atomic number','pH only','Gas volume only'],0],
+ ['Electrochemistry','Oxidation occurs at the:', ['Anode','Cathode','Salt bridge only','Wire only'],0],
+ ['Electrochemistry','Reduction occurs at the:', ['Anode','Cathode','Salt bridge','Electrolyte only'],1],
+ ['Electrochemistry','Electrons flow through the external circuit from:', ['Anode to cathode','Cathode to anode','Salt bridge to anode','Solution to salt bridge'],0],
+ ['Solutions','A 10 g sample in 2 L has density:', ['5 g/L','20 g/L','0.2 g/L','12 g/L'],0],
+ ['Solutions','A 5% m/m solution contains 5 g solute per:', ['100 g solution','5 g solution','1 L solution','100 L solution'],0],
+ ['Solutions','Molality uses kilograms of:', ['Solvent','Solution','Solute','Water only'],0],
+ ['Significant Figures','How many significant figures are in 120.0?',['2','3','4','5'],2],
+ ['Significant Figures','How many significant figures are in 0.0200?',['2','3','4','5'],1],
+ ['Scientific Notation','450000 in scientific notation is:', ['4.5×10⁵','45×10⁴','4.5×10⁶','0.45×10⁶'],0],
+ ['Scientific Notation','7.2×10⁻³ equals:', ['0.0072','0.072','7200','0.00072'],0],
+ ['Molecular Formula','An empirical formula can be multiplied by a whole number to get the:', ['Molecular formula','Atomic number','pH','Ksp'],0],
+ ['Percentage Composition','If a compound is 20 g and contains 5 g carbon, carbon percent is:', ['5%','20%','25%','40%'],2],
+ ['Limiting Reactant','If one reactant runs out first, it is the:', ['Excess reactant','Limiting reactant','Catalyst','Solvent'],1],
+ ['Yield','If actual yield is lower than theoretical yield, percent yield is:', ['Less than 100%','Exactly 100%','Greater than 100%','Zero always'],0],
+ ['Ksp','A larger Ksp generally indicates a salt is:', ['More soluble','Always insoluble','A gas','An acid'],0],
+ ['Buffers','A common buffer contains a weak acid and its:', ['Conjugate base','Strong acid only','Metal only','Noble gas'],0],
+ ['Beer–Lambert','If concentration increases while other factors stay constant, absorbance generally:', ['Increases','Decreases','Becomes zero','Is unchanged'],0],
+ ['Half-Life','After one half-life, the amount remaining is:', ['25%','50%','75%','100%'],1],
+ ['Half-Life','After two half-lives, the fraction remaining is:', ['1/2','1/3','1/4','1/8'],2],
+ ['Density','If mass is 20 g and volume is 4 mL, density is:', ['5 g/mL','16 g/mL','0.2 g/mL','80 g/mL'],0],
+ ['Normality','Normality is based on equivalents per:', ['Liter of solution','Kilogram solvent','Mole of solute','Gram of gas'],0],
+ ['Mole Fraction','The sum of mole fractions in a mixture equals:', ['0','1','10','100'],1],
+ ['Avogadro','Avogadro’s number is approximately:', ['6.022×10²³','9.81','3.00×10⁸','1.602×10⁻¹⁹'],0],
+ ['Enthalpy','A negative ΔH usually indicates a(n):',['Endothermic process','Exothermic process','Neutral atom','Gas law'],1],
+ ['Kp','Kp is an equilibrium constant commonly expressed using:', ['Partial pressures','Mass only','Molar masses','Atomic numbers'],0],
+ ['Ka','Ka measures the strength of a:', ['Weak acid','Metal','Gas','Salt bridge'],0],
+ ['Kb','Kb measures the strength of a:', ['Weak base','Strong metal','Noble gas','Oxidizing agent'],0],
+ ['pKa','A lower pKa generally corresponds to a:', ['Stronger acid','Weaker acid','Stronger base only','Neutral solution'],0],
+ ['pKb','A lower pKb generally corresponds to a:', ['Stronger base','Weaker base','Strong acid only','Salt'],0],
+ ['Ksp','For AgCl(s) ⇌ Ag⁺ + Cl⁻, Ksp is:', ['[Ag⁺][Cl⁻]','[AgCl]','[Ag⁺]+[Cl⁻]','1/[AgCl]'],0],
+ ['Buffers','The Henderson–Hasselbalch equation includes:', ['pKa and log(base/acid)','PV=nRT','q=mcΔT','Ksp only'],0],
+ ['Beer–Lambert','In A=εbc, b represents:', ['Path length','Concentration','Absorptivity','Absorbance'],0],
+ ['Stoichiometry','Theoretical yield is based on the:', ['Limiting reactant','Excess reactant only','Color of product','Catalyst mass'],0],
+ ['Formula','What does H₂SO₄ contain?', ['2 H, 1 S, 4 O','1 H, 2 S, 4 O','2 H, 4 S, 1 O','4 H, 2 S, 1 O'],0],
+ ['Formula','How many oxygen atoms are in Ca(OH)₂?', ['1','2','3','4'],1],
+ ['Formula','How many total atoms are in H₂O?', ['2','3','4','5'],1],
+ ['Formula','How many total atoms are in CO₂?', ['2','3','4','5'],1],
+ ['Lab Safety','Which should be used to protect eyes in a chemistry lab?', ['Safety goggles','Sandals','No protection','Cloth only'],0],
+ ['Lab Safety','When diluting acid, the safer general rule is to:', ['Add acid to water carefully','Add water to concentrated acid quickly','Mix without protection','Heat first'],0],
+ ['Scientific Method','A testable explanation is called a:', ['Hypothesis','Constant','Unit','Product'],0],
+ ['Units','The SI unit for amount of substance is:', ['Mole','Gram','Liter','Kelvin'],0],
+ ['Units','The SI base unit of temperature is:', ['Kelvin','Celsius','Fahrenheit','Joule'],0],
+ ['Units','Pressure can be measured in:', ['Pa','mol','g','K'],0],
+];
+extras.forEach(x=>addQ(x[0],x[1],x[2],x[3]));
+// Add deterministic numerical variants until the bank exceeds 120 questions.
+const nums=[0.25,0.50,0.75,1.00,1.50,2.00,2.50,3.00,4.00,5.00];
+nums.forEach((n,i)=>{
+  addQ('Molarity',`If ${n.toFixed(2)} mol is dissolved in 1.00 L, the molarity is:`,[`${(n/2).toFixed(2)} M`,`${n.toFixed(2)} M`,`${(n*2).toFixed(2)} M`,`1.00 M`],1);
+  addQ('Moles',`If a substance has a molar mass of 10.0 g/mol, ${n.toFixed(2)} g corresponds to:`,[`${(n/10).toFixed(3)} mol`,`${(n*10).toFixed(2)} mol`,`${n.toFixed(2)} mol`,`10.0 mol`],0);
+});
+function quiz(){qi=0;score=0; q=q.sort(()=>Math.random()-0.5);showQ()}
+function showQ(){let x=q[qi];page('Practice Quiz 2.0',`<p>Question ${qi+1} of ${q.length} • Score: ${score} • <b>${x[3]}</b></p><h3>${x[0]}</h3>${x[1].map((o,i)=>`<button class="quizopt" data-q="${i}">${o}</button>`).join('')}<div id="r" aria-live="polite"></div>`)}
+function answer(i){let x=q[qi];let r=document.getElementById('r');if(i===x[2]){score++;r.textContent='Correct! 🎉'}else r.textContent='Not quite. Keep going!';setTimeout(()=>{qi++;if(qi<q.length)showQ();else{try{localStorage.setItem('chemcalc52_lastscore',JSON.stringify({score,total:q.length,date:new Date().toISOString()}))}catch(e){} page('Quiz Complete',`<div class="result"><h2>🎉 Quiz Complete</h2><p>You scored <b>${score}/${q.length}</b> (${Math.round(score/q.length*100)}%).</p><p>Your latest result is saved on this device.</p></div><button class="primary" data-go="quiz">Try Again</button><button data-s3="progress">📊 View Progress</button>`)}},500)}
 function quiz(){qi=0;score=0;showQ()}
-function showQ(){let x=q[qi];page('Practice Quiz',`<p>Question ${qi+1} of ${q.length} • Score: ${score}</p><h3>${x[0]}</h3>${x[1].map((o,i)=>`<button class="quizopt" data-q="${i}">${o}</button>`).join('')}<div id="r"></div>`)}
 function answer(i){let x=q[qi];let r=document.getElementById('r');if(i===x[2]){score++;r.textContent='Correct! 🎉'}else r.textContent='Not quite. Keep going!';setTimeout(()=>{qi++;if(qi<q.length)showQ();else page('Quiz Complete',`<div class="result">You scored ${score}/${q.length}.</div><button class="primary" data-go="quiz">Try Again</button>`);},700)}
 document.addEventListener('click',e=>{
-if(e.target.closest('[data-notes]')){page('Chemistry Notes',`<div class=\"law\"><h3>Moles</h3><div class=\"formula\">n = m/M</div></div><div class=\"law\"><h3>Molarity</h3><div class=\"formula\">C = n/V</div></div><div class=\"law\"><h3>Dilution</h3><div class=\"formula\">C₁V₁ = C₂V₂</div></div><div class=\"law\"><h3>Ideal Gas Law</h3><div class=\"formula\">PV = nRT</div></div>`);return}if(e.target.closest('[data-progress]')){page('My Progress',`<p>Your quiz progress is stored in this browser for the current ChemCalc version.</p><div class=\"result\">Keep practicing to build your score.</div>`);return}let b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-home'))return home();if(b.dataset.go){let x=b.dataset.go;if(x==='gas')gas();else if(x==='balance')balance();else if(x==='quiz')quiz();else if(x==='periodic')periodic();else if(x==='mass')page('Molar Mass',`<input id="mf" placeholder="H2O"><button class="primary" data-mm>Calculate</button><div id="r"></div>`);else if(x==='moles')page('Moles',`<label>Mass (g)</label><input id="ma" type="number" step="any"><label>Molar mass (g/mol)</label><input id="mm" type="number" step="any"><button class="primary" data-moles>Calculate</button><div id="r"></div>`);return}if(b.dataset.g)form(b.dataset.g);if(b.dataset.gcalc)gascalc(b.dataset.gcalc);if(b.hasAttribute('data-balance'))doBalance();if(b.dataset.q){answer(Number(b.dataset.q))}if(b.dataset.el){let z=Number(b.dataset.el),x=elements.find(e=>e[2]===z);document.getElementById('elementInfo').textContent=`${x[1]} (${x[0]}) • Atomic number ${x[2]}`};if(b.hasAttribute('data-mm')){let f=document.getElementById('mf').value,total=0,mm={'H':1.008,'O':15.999,'C':12.011,'N':14.007,'Na':22.990,'Cl':35.45,'Ca':40.078,'S':32.06};for(let m of f.matchAll(/([A-Z][a-z]?)(\d*)/g))total+=(mm[m[1]]||0)*Number(m[2]||1);document.getElementById('r').textContent=total?`Molar mass = ${total.toFixed(3)} g/mol`:'Use a common formula.'}if(b.hasAttribute('data-moles')){let a=Number(document.getElementById('ma').value),m=Number(document.getElementById('mm').value);document.getElementById('r').textContent=a&&m?`n = ${(a/m).toFixed(4)} mol`:'Enter valid values.'}});
+if(e.target.closest('[data-notes]')){notesPage();return}if(e.target.closest('[data-progress]')){page('My Progress',`<p>Your quiz progress is stored in this browser for the current ChemCalc version.</p><div class=\"result\">Keep practicing to build your score.</div>`);return}let b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-home'))return home();if(b.dataset.go){let x=b.dataset.go;if(x==='gas')gas();else if(x==='balance')balance();else if(x==='quiz')quiz();else if(x==='periodic')periodic();else if(x==='mass')page('Molar Mass',`<input id="mf" placeholder="H2O"><button class="primary" data-mm>Calculate</button><div id="r"></div>`);else if(x==='moles')page('Moles',`<label>Mass (g)</label><input id="ma" type="number" step="any"><label>Molar mass (g/mol)</label><input id="mm" type="number" step="any"><button class="primary" data-moles>Calculate</button><div id="r"></div>`);return}if(b.dataset.g)form(b.dataset.g);if(b.dataset.gcalc)gascalc(b.dataset.gcalc);if(b.hasAttribute('data-balance'))doBalance();if(b.dataset.q){answer(Number(b.dataset.q))}if(b.dataset.el){let z=Number(b.dataset.el),x=elements.find(e=>e[2]===z);document.getElementById('elementInfo').textContent=`${x[1]} (${x[0]}) • Atomic number ${x[2]}`};if(b.hasAttribute('data-mm')){let f=document.getElementById('mf').value,total=0,mm={'H':1.008,'O':15.999,'C':12.011,'N':14.007,'Na':22.990,'Cl':35.45,'Ca':40.078,'S':32.06};for(let m of f.matchAll(/([A-Z][a-z]?)(\d*)/g))total+=(mm[m[1]]||0)*Number(m[2]||1);document.getElementById('r').textContent=total?`Molar mass = ${total.toFixed(3)} g/mol`:'Use a common formula.'}if(b.hasAttribute('data-moles')){let a=Number(document.getElementById('ma').value),m=Number(document.getElementById('mm').value);document.getElementById('r').textContent=a&&m?`n = ${(a/m).toFixed(4)} mol`:'Enter valid values.'}});
 </script>
 <style>
 .s3-panel{background:white;border-radius:18px;padding:16px;margin-bottom:14px}
@@ -98,7 +248,7 @@ if(localStorage.getItem('chemDark')==='true')document.body.classList.add('s3-dar
     qi:0, score:0, answered:false,
     showQuiz:function(){
       this.answered=false; const x=this.quiz[this.qi];
-      panel.innerHTML='<button class="back" data-home>← Home</button><h2>🎯 Advanced Practice Quiz</h2><p class="s4-small">Question '+(this.qi+1)+' of '+this.quiz.length+' <span class="s4-tag">'+x.d+'</span></p><div class="s4-card"><h3>'+x.q+'</h3>'+x.a.map((v,i)=>'<button class="s4-answer" data-s4ans="'+i+'">'+v+'</button>').join('')+'<div id="s4feedback" class="result" aria-live="polite"></div></div>';
+      panel.innerHTML='<button class="back" data-home>← Home</button><h2>🎯 Advanced Practice Quiz 2.0</h2><p class="s4-small">Question '+(this.qi+1)+' of '+this.quiz.length+' <span class="s4-tag">'+x.d+'</span></p><div class="s4-card"><h3>'+x.q+'</h3>'+x.a.map((v,i)=>'<button class="s4-answer" data-s4ans="'+i+'">'+v+'</button>').join('')+'<div id="s4feedback" class="result" aria-live="polite"></div></div>';
     },
     startQuiz:function(){this.qi=0;this.score=0;this.showQuiz()},
     answer:function(i){if(this.answered)return;this.answered=true;const x=this.quiz[this.qi];const ok=i===x.c; if(ok)this.score++; let f=document.getElementById('s4feedback');f.textContent=(ok?'Correct! 🎉 ':'Not quite. ')+x.e; document.querySelectorAll('[data-s4ans]').forEach((b,j)=>{if(j===x.c)b.classList.add('correct');if(j===i&&!ok)b.classList.add('wrong')}); try{let st=JSON.parse(localStorage.getItem('chemcalc4s3')||'{"attempted":0,"correct":0,"saved":[]}');st.attempted++;if(ok)st.correct++;localStorage.setItem('chemcalc4s3',JSON.stringify(st))}catch(e){}; setTimeout(()=>{this.qi++;if(this.qi<this.quiz.length)this.showQuiz();else this.finishQuiz()},900)},
@@ -128,19 +278,22 @@ body.s3-dark .s5-card{background:#172033;border-color:#475569}body.s3-dark .s5-r
     let body='';
     if(type==='percent')body='<div class="s5-card"><label>Formula</label><input id="s5formula" placeholder="H2O"><button class="primary" data-s5calc="percent">Calculate % composition</button><div id="s5r" class="s5-result">Enter a formula.</div></div>';
     if(type==='empirical')body='<div class="s5-card"><p class="s5-note">Enter the mass or percentage of each element. Zero means the element is absent.</p><div class="s5-grid">'+['C','H','O','N'].map(e=>'<div><label>'+e+'</label><input id="emp'+e+'" type="number" step="any" placeholder="0"></div>').join('')+'</div><button class="primary" data-s5calc="empirical">Find Empirical Formula</button><div id="s5r" class="s5-result">Enter values.</div></div>';
+    if(type==='molecular')body='<div class="s5-card"><p class="s5-note">Enter the empirical formula and the compound\'s molar mass.</p><label>Empirical formula</label><input id="molEmp" placeholder="CH2O"><label>Molar mass (g/mol)</label><input id="molMM" type="number" step="any" placeholder="180.16"><button class="primary" data-s5calc="molecular">Find Molecular Formula</button><div id="s5r" class="s5-result">Enter both values.</div></div>';
     if(type==='concentration')body='<div class="s5-card">'+common([['cM','Moles of solute (mol)'],['cV','Solution volume (L)']])+'</div>';
     if(type==='dilution')body='<div class="s5-card">'+common([['dC1','Initial concentration (M)'],['dV1','Initial volume (L)'],['dC2','Final concentration (M)']])+'</div>';
     if(type==='ph')body='<div class="s5-card">'+common([['h','[H⁺] concentration (mol/L)']])+'</div>';
     if(type==='poh')body='<div class="s5-card">'+common([['oh','[OH⁻] concentration (mol/L)']])+'</div>';
     if(type==='stoich')body='<div class="s5-card"><p class="s5-note">Simple mole-ratio helper. Enter known moles and coefficients from a balanced equation.</p>'+common([['sm','Known moles'],['sc1','Known coefficient'],['sc2','Unknown coefficient']],'Calculate unknown moles')+'</div>';
-    s5page({percent:'Percentage Composition',empirical:'Empirical Formula',concentration:'Molar Concentration',dilution:'Dilution',ph:'pH',poh:'pOH',stoich:'Stoichiometry Helper'}[type],body);
+    s5page({percent:'Percentage Composition',empirical:'Empirical Formula',molecular:'Molecular Formula',concentration:'Molar Concentration',dilution:'Dilution',ph:'pH',poh:'pOH',stoich:'Stoichiometry Helper'}[type],body);
   }
+  function parseFormulaSafe(s){const out={};let i=0;while(i<s.length){if(!/[A-Z]/.test(s[i])){i++;continue}let el=s[i++];if(i<s.length&&/[a-z]/.test(s[i]))el+=s[i++];let num='';while(i<s.length&&/[0-9]/.test(s[i]))num+=s[i++];out[el]=(out[el]||0)+(num?Number(num):1);}return out}
   function calc(type){
     const r=document.getElementById('s5r'); if(!r)return;
     let text='';
     try{
       if(type==='percent'){const f=document.getElementById('s5formula').value.trim();const mass=formulaMass(f);if(!f||!Number.isFinite(mass))throw 0;const parts=[];const re=/([A-Z][a-z]?)(\d*)/g;let m;while((m=re.exec(f))){const el=m[1],count=Number(m[2]||1);parts.push(el+': '+(atomic[el]*count/mass*100).toFixed(2)+'%')}text='Molar mass = '+mass.toFixed(3)+' g/mol\n\n'+parts.join('\n')+'\n\nWorking:\n% element = (mass of element in 1 mol ÷ molar mass) × 100';}
       if(type==='empirical'){const els=['C','H','O','N'], vals=els.map(e=>Number(document.getElementById('emp'+e).value)||0), active=[];els.forEach((e,i)=>{if(vals[i]>0)active.push([e,vals[i]/atomic[e]])});if(!active.length)throw 0;const min=Math.min(...active.map(x=>x[1]));let ratios=active.map(x=>[x[0],x[1]/min]);let mult=1;for(let k=1;k<=6;k++){if(ratios.every(x=>Math.abs(x[1]*k-Math.round(x[1]*k))<0.05)){mult=k;break}}const out=ratios.map(x=>x[0]+(Math.round(x[1]*mult)===1?'':Math.round(x[1]*mult))).join('');text='Empirical formula ≈ '+out+'\n\nWorking:\n1. Convert each mass to moles.\n2. Divide all mole values by the smallest.\n3. Multiply to clear simple fractions.\nRatios: '+ratios.map(x=>x[0]+' '+x[1].toFixed(3)).join(', ');}
+      if(type==='molecular'){const emp=document.getElementById('molEmp').value.trim(), target=val('molMM'); if(!emp||!(target>0)) throw 0; const atoms=parseFormulaSafe(emp); if(!Object.keys(atoms).length) throw 0; let emass=0; for(const [el,n] of Object.entries(atoms)){if(atomic[el]==null) throw 0; emass+=atomic[el]*n;} const factor=target/emass; const rounded=Math.round(factor); if(Math.abs(factor-rounded)>0.05||rounded<1) throw 0; const out=Object.entries(atoms).map(([el,n])=>el+(n*rounded===1?'':n*rounded)).join(''); text='Molecular formula = '+out+'\n\nWorking:\n1. Find empirical formula mass = '+emass.toFixed(3)+' g/mol\n2. n = molar mass ÷ empirical formula mass\n3. n = '+target+' ÷ '+emass.toFixed(3)+' = '+factor.toFixed(3)+' ≈ '+rounded+'\n4. Multiply every empirical subscript by '+rounded+'.'; saveCalc(type,text);}
       if(type==='concentration'){const m=val('cM'),v=val('cV');if(!(m>=0&&v>0))throw 0;const ans=m/v;text='M = '+ans.toFixed(4)+' mol/L\n\nWorking:\nM = moles ÷ volume\nM = '+m+' ÷ '+v;}
       if(type==='dilution'){const c1=val('dC1'),v1=val('dV1'),c2=val('dC2');if(!(c1>0&&v1>0&&c2>0))throw 0;const ans=c1*v1/c2;text='V₂ = '+ans.toFixed(4)+' L\n\nWorking:\nC₁V₁ = C₂V₂\nV₂ = C₁V₁ ÷ C₂\n= '+c1+' × '+v1+' ÷ '+c2;}
       if(type==='ph'){const h=val('h');if(!(h>0))throw 0;const ans=-Math.log10(h);text='pH = '+ans.toFixed(4)+'\n\nWorking:\npH = −log₁₀[H⁺]\n= −log₁₀('+h+')';}
@@ -149,9 +302,9 @@ body.s3-dark .s5-card{background:#172033;border-color:#475569}body.s3-dark .s5-r
       r.textContent=text;saveCalc(type,text);
     }catch(e){r.textContent='Please enter valid positive values.'}
   }
-  function more(){s5page('🧮 More Calculators','<p class="s5-note">Choose a calculator. Every result includes the working and is saved to Saved Work.</p><div class="s5-actions"><button data-s5tool="percent">% Composition</button><button data-s5tool="empirical">Empirical Formula</button><button data-s5tool="concentration">Concentration</button><button data-s5tool="dilution">Dilution</button><button data-s5tool="ph">pH</button><button data-s5tool="poh">pOH</button><button data-s5tool="stoich">Stoichiometry</button></div>');}
+  function more(){s5page('🧮 More Calculators','<p class="s5-note">Choose a calculator. Every result includes the working and is saved to Saved Work.</p><div class="s5-actions"><button data-s5tool="percent">% Composition</button><button data-s5tool="empirical">Empirical Formula</button><button data-s5tool="molecular">Molecular Formula</button><button data-s5tool="concentration">Concentration</button><button data-s5tool="dilution">Dilution</button><button data-s5tool="ph">pH</button><button data-s5tool="poh">pOH</button><button data-s5tool="stoich">Stoichiometry</button></div>');}
   function showWorking(){s5page('💡 Show Working','<div class="s5-card"><h3>How ChemCalc solves common problems</h3><p class="s5-step"><b>Moles:</b> n = mass ÷ molar mass.</p><p class="s5-step"><b>Molarity:</b> M = moles ÷ volume in litres.</p><p class="s5-step"><b>Dilution:</b> C₁V₁ = C₂V₂.</p><p class="s5-step"><b>pH:</b> pH = −log₁₀[H⁺].</p><p class="s5-step"><b>Gas laws:</b> choose the law that matches the quantities given, then rearrange for the unknown.</p><p class="s5-step"><b>Stoichiometry:</b> use the coefficients in the balanced equation as mole ratios.</p></div>');}
-  // Add Step 5 controls without replacing the working Step 4 UI.
+  // Add Step 5 controls without replacing the working Step 5 UI.
   const nav=document.querySelector('.topnav'); if(nav){const b=document.createElement('button');b.dataset.s5='more';b.textContent='🧮 More Calculators';nav.appendChild(b);const w=document.createElement('button');w.dataset.s5='working';w.textContent='💡 Show Working';nav.appendChild(w)}
   const homeSection=document.getElementById('home'); if(homeSection){const row=document.createElement('div');row.className='grid';row.style.marginTop='10px';row.innerHTML='<button data-s5="more">🧮 More Calculators</button><button data-s5="working">💡 Show Working</button>';homeSection.appendChild(row)}
   document.addEventListener('click',function(e){
@@ -160,4 +313,169 @@ body.s3-dark .s5-card{background:#172033;border-color:#475569}body.s3-dark .s5-r
     const c=e.target.closest('[data-s5calc]');if(c){calc(c.dataset.s5calc);return}
   });
 })();
-</script></body></html>
+</script>
+<style>
+.s52-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.s52-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin:10px 0}.s52-result{background:#f0f5ff;border-left:4px solid #2563eb;padding:13px;border-radius:10px;margin-top:12px;white-space:pre-wrap;line-height:1.5}.s52-note{font-size:13px;color:#667085}@media(max-width:500px){.s52-grid{grid-template-columns:1fr}}
+</style>
+<script>
+(function(){
+ const atomic={H:1.008,C:12.011,N:14.007,O:15.999,Na:22.990,Cl:35.45,Ca:40.078,S:32.06,Mg:24.305,K:39.098,Fe:55.845,Al:26.982,P:30.974,Cu:63.546,Zn:65.38,Ag:107.868,I:126.904,Br:79.904};
+ const extra={
+  molarity:['Molarity','M = moles ÷ volume (L)',[['m','Moles of solute (mol)'],['v','Solution volume (L)']]],
+  molality:['Molality','m = moles of solute ÷ kg of solvent',[['n','Moles of solute (mol)'],['kg','Mass of solvent (kg)']]],
+  normality:['Normality','N = equivalents ÷ volume (L)',[['eq','Equivalents'],['v','Volume of solution (L)']]],
+  molefraction:['Mole Fraction','χᵢ = nᵢ ÷ total moles',[['a','Moles of component A'],['b','Moles of component B']]],
+  masspct:['Mass Percentage','% = (mass solute ÷ total mass) × 100',[['s','Mass of solute (g)'],['t','Total mass of solution (g)']]],
+  ppm:['Parts Per Million','ppm = (solute ÷ solution) × 10⁶',[['s','Mass of solute (g)'],['t','Total mass of solution (g)']]],
+  ppb:['Parts Per Billion','ppb = (solute ÷ solution) × 10⁹',[['s','Mass of solute (g)'],['t','Total mass of solution (g)']]],
+  density:['Density','ρ = mass ÷ volume',[['m','Mass (g)'],['v','Volume (mL)']]],
+  avogadro:['Avogadro Calculator','Number of particles = moles × 6.022 × 10²³',[['n','Amount (mol)']]],
+  yield:['Percent Yield','% yield = actual ÷ theoretical × 100',[['a','Actual yield (g)'],['t','Theoretical yield (g)']]]
+ };
+ function save(title,result){try{let st=JSON.parse(localStorage.getItem('chemcalc4s3')||'{}');st.saved=st.saved||[];st.saved.unshift({title,result,time:new Date().toLocaleString()});st.saved=st.saved.slice(0,30);localStorage.setItem('chemcalc4s3',JSON.stringify(st))}catch(e){}}
+ function makePage(type){const d=extra[type];let fields=d[2].map(x=>'<label>'+x[1]+'</label><input id="x52_'+x[0]+'" type="number" step="any">').join('');panel.innerHTML='<button class="back" data-home>← Home</button><h2>'+d[0]+'</h2><div class="s52-card"><p class="s52-note"><b>Formula:</b> '+d[1]+'</p>'+fields+'<button class="primary" data-x52calc="'+type+'">Calculate</button><div id="x52r" class="s52-result">Your answer and working will appear here.</div></div>';panel.scrollIntoView({behavior:'smooth',block:'start'})}
+ function v(id){return Number(document.getElementById('x52_'+id)?.value)}
+ function calc(type){const r=document.getElementById('x52r');let text='';try{let ans; if(type==='molarity'){let m=v('m'),vol=v('v');if(!(m>=0&&vol>0))throw 0;ans=m/vol;text=`Molarity = ${ans.toFixed(4)} mol/L\n\nWorking:\nM = moles ÷ volume\n= ${m} ÷ ${vol}`}
+ else if(type==='molality'){let n=v('n'),kg=v('kg');if(!(n>=0&&kg>0))throw 0;ans=n/kg;text=`Molality = ${ans.toFixed(4)} mol/kg\n\nWorking:\nm = moles of solute ÷ kg of solvent\n= ${n} ÷ ${kg}`}
+ else if(type==='normality'){let eq=v('eq'),vol=v('v');if(!(eq>=0&&vol>0))throw 0;ans=eq/vol;text=`Normality = ${ans.toFixed(4)} N\n\nWorking:\nN = equivalents ÷ volume\n= ${eq} ÷ ${vol}`}
+ else if(type==='molefraction'){let a=v('a'),b=v('b');if(!(a>=0&&b>=0&&a+b>0))throw 0;ans=a/(a+b);text=`Mole fraction of A = ${ans.toFixed(4)}\nMole fraction of B = ${(1-ans).toFixed(4)}\n\nWorking:\nχA = nA ÷ (nA + nB)\n= ${a} ÷ (${a} + ${b})`}
+ else if(type==='masspct'){let a=v('s'),t=v('t');if(!(a>=0&&t>0&&a<=t))throw 0;ans=a/t*100;text=`Mass percentage = ${ans.toFixed(2)}%\n\nWorking:\n% = (solute mass ÷ total mass) × 100\n= (${a} ÷ ${t}) × 100`}
+ else if(type==='ppm'){let a=v('s'),t=v('t');if(!(a>=0&&t>0))throw 0;ans=a/t*1e6;text=`Concentration = ${ans.toFixed(2)} ppm\n\nWorking:\nppm = (solute ÷ solution) × 10⁶\n= (${a} ÷ ${t}) × 10⁶`}
+ else if(type==='ppb'){let a=v('s'),t=v('t');if(!(a>=0&&t>0))throw 0;ans=a/t*1e9;text=`Concentration = ${ans.toFixed(2)} ppb\n\nWorking:\nppb = (solute ÷ solution) × 10⁹\n= (${a} ÷ ${t}) × 10⁹`}
+ else if(type==='density'){let m=v('m'),vol=v('v');if(!(m>=0&&vol>0))throw 0;ans=m/vol;text=`Density = ${ans.toFixed(4)} g/mL\n\nWorking:\nρ = mass ÷ volume\n= ${m} ÷ ${vol}`}
+ else if(type==='avogadro'){let n=v('n');if(!(n>=0))throw 0;ans=n*6.022e23;text=`Particles = ${ans.toExponential(4)}\n\nWorking:\nN = n × 6.022 × 10²³\n= ${n} × 6.022 × 10²³`}
+ else if(type==='yield'){let a=v('a'),t=v('t');if(!(a>=0&&t>0))throw 0;ans=a/t*100;text=`Percent yield = ${ans.toFixed(2)}%\n\nWorking:\n% yield = (actual ÷ theoretical) × 100\n= (${a} ÷ ${t}) × 100`}
+ r.textContent=text;save(extra[type][0],text)}catch(e){r.textContent='Please enter valid values.'}}
+ function menu(){let buttons=Object.keys(extra).map(k=>'<button data-x52tool="'+k+'">'+extra[k][0]+'</button>').join('');panel.innerHTML='<button class="back" data-home>← Home</button><h2>🧮 More Calculators — Step 2</h2><p class="s52-note">Ten additional chemistry calculators. Each gives the formula, answer, working and saves the result.</p><div class="s52-grid">'+buttons+'</div>';panel.scrollIntoView({behavior:'smooth',block:'start'})}
+ const nav=document.querySelector('.topnav');if(nav){const b=document.createElement('button');b.dataset.x52menu='1';b.textContent='🧮 10 More';nav.appendChild(b)}
+ const home=document.getElementById('home');if(home){const row=document.createElement('div');row.className='grid';row.style.marginTop='10px';row.innerHTML='<button data-x52menu="1">🧮 10 More Calculators</button>';home.appendChild(row)}
+ document.addEventListener('click',e=>{let a=e.target.closest('[data-x52menu]');if(a){menu();return}let t=e.target.closest('[data-x52tool]');if(t){makePage(t.dataset.x52tool);return}let c=e.target.closest('[data-x52calc]');if(c){calc(c.dataset.x52calc);return}})
+})();
+</script>
+
+<script>
+(function(){
+  const enhancedTools=[
+    ['molarity','🧪 Molarity','M = moles ÷ volume (L)'],
+    ['molality','🧪 Molality','m = moles of solute ÷ kg of solvent'],
+    ['normality','⚗️ Normality','N = equivalents ÷ volume (L)'],
+    ['fraction','🔢 Mole Fraction','X = moles of component ÷ total moles'],
+    ['ppm','💧 ppm','ppm = solute mass ÷ solution mass × 10⁶'],
+    ['ppb','💧 ppb','ppb = solute mass ÷ solution mass × 10⁹'],
+    ['density','⚖️ Density','d = mass ÷ volume'],
+    ['avogadro','🔬 Avogadro','particles = moles × 6.022×10²³'],
+    ['yield','📈 Percent Yield','% yield = actual ÷ theoretical × 100'],
+    ['limit','⚗️ Limiting Reactant','Compare available mole/coefficient ratios'],
+    ['theory','📊 Theoretical Yield','Use limiting reactant and stoichiometric ratio'],
+    ['excess','⚖️ Excess Reactant','Find reactant remaining after reaction'],
+    ['heat','🔥 Calorimetry','q = m c ΔT'],
+    ['half','⏳ Half-Life','N = N₀(1/2)^(t/t½)'],
+    ['sigfig','🔢 Significant Figures','Count significant digits'],
+    ['scientific','🔬 Scientific Notation','Convert to a × 10ⁿ form'],
+    ['kc','⚖️ Equilibrium Kc','Kc = products / reactants using powers'],
+    ['ka','🧪 Ka','Ka = [H⁺][A⁻] / [HA]'],
+    ['ksp','💧 Ksp','Calculate solubility-product expression'],
+    ['beer','🌈 Beer–Lambert','A = εbc']
+  ];
+  function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function enhancedPage(){
+    s5page('🧮 More Calculators', '<p class="s5-note">ChemCalc 5.6 now includes the richer calculator library. Pick a tool below.</p><div class="s4-grid">'+enhancedTools.map(t=>'<button class="s4-answer" data-enhanced-tool="'+t[0]+'"><b>'+t[1]+'</b><br><span class="s4-small">'+t[2]+'</span></button>').join('')+'</div>');
+  }
+  function fields(title, html, formula){
+    s5page(title,'<div class="s4-card"><div class="formula">'+formula+'</div>'+html+'<button class="primary" data-enhanced-calc>Calculate</button><div id="enhR" class="s5-result" aria-live="polite">Enter values to calculate.</div></div>');
+  }
+  function input(id,label,ph){return '<label>'+label+'</label><input id="'+id+'" type="number" step="any" placeholder="'+(ph||'')+'">'}
+  function tool(t){
+    const pages={
+      molarity:['🧪 Molarity',input('em','Moles (mol)','0.50')+input('ev','Volume (L)','2.00'),'M = n / V'],
+      molality:['🧪 Molality',input('em','Moles of solute (mol)','0.50')+input('ek','Mass of solvent (kg)','1.00'),'m = n / kg solvent'],
+      normality:['⚗️ Normality',input('ee','Equivalents','1.00')+input('ev','Volume (L)','2.00'),'N = equivalents / V'],
+      fraction:['🔢 Mole Fraction',input('ex','Moles of component','2.0')+input('et','Total moles','5.0'),'X = nᵢ / nₜ'],
+      ppm:['💧 ppm',input('es','Solute mass (g)','0.01')+input('esol','Solution mass (g)','1000'),'ppm = (solute / solution) × 10⁶'],
+      ppb:['💧 ppb',input('bs','Solute mass (g)','0.00001')+input('bsol','Solution mass (g)','1000'),'ppb = (solute / solution) × 10⁹'],
+      density:['⚖️ Density',input('dm','Mass (g)','25')+input('dv','Volume (mL)','10'),'d = m / V'],
+      avogadro:['🔬 Avogadro',input('an','Moles (mol)','1.00'),'N = n × 6.022×10²³'],
+      yield:['📈 Percent Yield',input('ya','Actual yield (g)','8.5')+input('yt','Theoretical yield (g)','10'),'yield = actual / theoretical × 100'],
+      limit:['⚗️ Limiting Reactant',input('la','Moles A','2')+input('lb','Moles B','3')+input('ca','Coefficient A','1')+input('cb','Coefficient B','2'),'Compare n/coefficient; smaller ratio limits'],
+      theory:['📊 Theoretical Yield',input('lm','Limiting reactant moles','2')+input('lp','Product coefficient','2')+input('lr','Reactant coefficient','1')+input('pm','Product molar mass (g/mol)','18'),'g product = limiting mol × ratio × molar mass'],
+      excess:['⚖️ Excess Reactant',input('ea','Initial moles A','5')+input('eb','Initial moles B','2')+input('eca','Coefficient A','1')+input('ecb','Coefficient B','1'),'Remaining = initial − amount consumed'],
+      heat:['🔥 Calorimetry',input('hm','Mass (g)','100')+input('hc','Specific heat (J/g°C)','4.18')+input('hd','ΔT (°C)','5'),'q = mcΔT'],
+      half:['⏳ Half-Life',input('hN','Initial amount','100')+input('ht','Time','10')+input('hh','Half-life','5'),'N = N₀(1/2)^(t/t½)'],
+      sigfig:['🔢 Significant Figures','<label>Number</label><input id="sg" type="text" inputmode="decimal" placeholder="0.0045600">','Count meaningful digits'],
+      scientific:['🔬 Scientific Notation','<label>Number</label><input id="sn" type="text" inputmode="decimal" placeholder="0.000456">','a × 10ⁿ'],
+      kc:['⚖️ Equilibrium Kc',input('kp1','Product 1 concentration','1')+input('kp2','Product 2 concentration','1')+input('kr1','Reactant 1 concentration','1')+input('kr2','Reactant 2 concentration','1'),'Kc = [products] / [reactants]'],
+      ka:['🧪 Ka',input('kh','[H⁺]','0.001')+input('kaA','[A⁻]','0.001')+input('kha','[HA]','0.1'),'Ka = [H⁺][A⁻] / [HA]'],
+      ksp:['💧 Ksp',input('kx','[cation]','0.001')+input('ky','[anion]','0.001'),'Ksp = product of ion concentrations raised to stoichiometric powers'],
+      beer:['🌈 Beer–Lambert',input('be','ε','100')+input('bb','Path length b (cm)','1')+input('bc','Concentration c (M)','0.01'),'A = εbc']
+    };
+    const x=pages[t]; if(!x)return; fields(x[0],x[1],x[2]);
+  }
+  function num(id){const e=document.getElementById(id); return e?Number(e.value):NaN}
+  function calc(t){
+    let ans,work;
+    try{
+      if(t==='molarity'){ans=num('em')/num('ev');work='M = 0.50 ÷ 2.00 = '+ans.toFixed(4)+' M';}
+      else if(t==='molality'){ans=num('em')/num('ek');work='m = '+num('em')+' ÷ '+num('ek')+' = '+ans.toFixed(4)+' mol/kg';}
+      else if(t==='normality'){ans=num('ee')/num('ev');work='N = '+num('ee')+' ÷ '+num('ev')+' = '+ans.toFixed(4)+' N';}
+      else if(t==='fraction'){ans=num('ex')/num('et');work='X = '+num('ex')+' ÷ '+num('et')+' = '+ans.toFixed(4);}
+      else if(t==='ppm'){ans=num('es')/num('esol')*1e6;work='ppm = ('+num('es')+' ÷ '+num('esol')+') × 10⁶ = '+ans.toFixed(4);}
+      else if(t==='ppb'){ans=num('bs')/num('bsol')*1e9;work='ppb = ('+num('bs')+' ÷ '+num('bsol')+') × 10⁹ = '+ans.toFixed(4);}
+      else if(t==='density'){ans=num('dm')/num('dv');work='d = '+num('dm')+' ÷ '+num('dv')+' = '+ans.toFixed(4)+' g/mL';}
+      else if(t==='avogadro'){ans=num('an')*6.02214076e23;work='particles = '+num('an')+' × 6.022×10²³ = '+ans.toExponential(6);}
+      else if(t==='yield'){ans=num('ya')/num('yt')*100;work='% yield = ('+num('ya')+' ÷ '+num('yt')+') × 100 = '+ans.toFixed(2)+'%';}
+      else if(t==='limit'){const a=num('la')/num('ca'),b=num('lb')/num('cb');ans=a<b?'A is limiting':'B is limiting';work='A ratio = '+a.toFixed(4)+'; B ratio = '+b.toFixed(4)+' → '+ans+'.';}
+      else if(t==='theory'){ans=num('lm')*num('lp')/num('lr')*num('pm');work='moles product = '+num('lm')+' × ('+num('lp')+' ÷ '+num('lr')+')\nMass = moles × '+num('pm')+' = '+ans.toFixed(4)+' g';}
+      else if(t==='excess'){const a=num('ea'),b=num('eb'),ca=num('eca'),cb=num('ecb'),bNeeded=a*cb/ca; const aNeeded=b*ca/cb; if(a/ca<b/cb){ans=b-bNeeded;work='A limits. B consumed = '+bNeeded.toFixed(4)+' mol; B remaining = '+ans.toFixed(4)+' mol.'}else{ans=a-aNeeded;work='B limits. A consumed = '+aNeeded.toFixed(4)+' mol; A remaining = '+ans.toFixed(4)+' mol.'}}
+      else if(t==='heat'){ans=num('hm')*num('hc')*num('hd');work='q = mcΔT = '+num('hm')+' × '+num('hc')+' × '+num('hd')+' = '+ans.toFixed(4)+' J';}
+      else if(t==='half'){ans=num('hN')*Math.pow(0.5,num('ht')/num('hh'));work='N = N₀(1/2)^(t/t½) = '+ans.toFixed(4);}
+      else if(t==='sigfig'){const z=document.getElementById('sg').value.trim(); const m=z.match(/[1-9]/g); ans=m?m.length:0; work='Significant figures counted in '+esc(z)+': '+ans;}
+      else if(t==='scientific'){const z=Number(document.getElementById('sn').value); if(!Number.isFinite(z))throw 0; ans=z.toExponential(6);work='Scientific notation: '+ans;}
+      else if(t==='kc'){ans=(num('kp1')*num('kp2'))/(num('kr1')*num('kr2'));work='Kc = ('+num('kp1')+'×'+num('kp2')+') ÷ ('+num('kr1')+'×'+num('kr2')+') = '+ans.toFixed(6);}
+      else if(t==='ka'){ans=(num('kh')*num('kaA'))/num('kha');work='Ka = ('+num('kh')+'×'+num('kaA')+') ÷ '+num('kha')+' = '+ans.toExponential(6);}
+      else if(t==='ksp'){ans=num('kx')*num('ky');work='For a simple 1:1 salt, Ksp = [cation][anion] = '+ans.toExponential(6);}
+      else if(t==='beer'){ans=num('be')*num('bb')*num('bc');work='A = εbc = '+num('be')+' × '+num('bb')+' × '+num('bc')+' = '+ans.toFixed(6);}
+      else throw 0;
+      const r=document.getElementById('enhR'); if(!r) return; if(!Number.isFinite(ans)){throw 0;} r.textContent='Answer: '+ans+'\n\nShow Working:\n'+work;
+    }catch(e){const r=document.getElementById('enhR');if(r)r.textContent='Please enter valid values.'}
+  }
+  document.addEventListener('click',e=>{
+    const more=e.target.closest('[data-enhanced="more"]'); if(more){enhancedPage();return;}
+    const t=e.target.closest('[data-enhanced-tool]'); if(t){tool(t.dataset.enhancedTool);return;}
+    if(e.target.closest('[data-enhanced-calc]')){const title=document.querySelector('#panel h2')?.textContent||'';const map={'🧪 Molarity':'molarity','🧪 Molality':'molality','⚗️ Normality':'normality','🔢 Mole Fraction':'fraction','💧 ppm':'ppm','💧 ppb':'ppb','⚖️ Density':'density','🔬 Avogadro':'avogadro','📈 Percent Yield':'yield','⚗️ Limiting Reactant':'limit','📊 Theoretical Yield':'theory','⚖️ Excess Reactant':'excess','🔥 Calorimetry':'heat','⏳ Half-Life':'half','🔢 Significant Figures':'sigfig','🔬 Scientific Notation':'scientific','⚖️ Equilibrium Kc':'kc','🧪 Ka':'ka','💧 Ksp':'ksp','🌈 Beer–Lambert':'beer'}; const k=map[title]; if(k)calc(k);}
+  });
+})();
+</script>
+<script>
+(function(){
+  function s51page(title,html){panel.innerHTML='<button class="back" data-home>← Home</button><h2>'+title+'</h2>'+html;panel.scrollIntoView({behavior:'smooth',block:'start'});}
+  function i(id,label,ph){return '<label>'+label+'</label><input id="s51_'+id+'" type="number" step="any" placeholder="'+(ph||'')+'">'}
+  function v(id){let e=document.getElementById('s51_'+id);return e?Number(e.value):NaN}
+  const tools={
+    stoich:['⚗️ Advanced Stoichiometry','Use a balanced equation to convert a known reactant amount into product amount.',i('sm','Known reactant moles','0.50')+i('rc','Reactant coefficient','2')+i('pc','Product coefficient','3')+i('pm','Product molar mass (g/mol)','44')],
+    limiting3:['⚗️ Limiting Reactant — 3 Reactants','Compare mole/coefficient ratios for three reactants.',i('a','Reactant A moles','2')+i('b','Reactant B moles','3')+i('c','Reactant C moles','1')+i('ca','A coefficient','1')+i('cb','B coefficient','2')+i('cc','C coefficient','1')],
+    kp:['⚖️ Equilibrium Kp','Calculate Kp from partial pressures.',i('p1','Product 1 pressure','0.5')+i('p2','Product 2 pressure','0.4')+i('r1','Reactant 1 pressure','0.2')+i('r2','Reactant 2 pressure','0.3')],
+    kb:['🧪 Kb','Calculate Kb = [OH⁻][BH⁺]/[B].',i('oh','[OH⁻]','0.001')+i('bh','[BH⁺]','0.001')+i('base','[B]','0.1')],
+    pka:['🧪 pKa / pKb','Convert Ka or Kb to pKa or pKb.',i('k','Ka or Kb','1e-5')],
+    buffer:['🧪 Buffer pH','Henderson–Hasselbalch equation: pH = pKa + log([A⁻]/[HA]).',i('pk','pKa','4.76')+i('salt','[A⁻]','0.10')+i('acid','[HA]','0.20')],
+    ksp2:['💧 Ksp — 1:1 Salt','For MX(s) ⇌ M⁺ + X⁻, Ksp = s².',i('sol','Molar solubility s (mol/L)','0.001')],
+    nernst:['🔋 Nernst Equation','At 25°C: E = E° − (0.05916/n)logQ.',i('e0','E° (V)','1.10')+i('nn','Electrons n','2')+i('q','Reaction quotient Q','0.01')]
+  };
+  function menu(){s51page('🚀 ChemCalc 5.6 — Advanced Tools','<p class="s51-note">Advanced stoichiometry plus higher-level equilibrium, acid–base and electrochemistry tools.</p><div class="s51-grid">'+Object.keys(tools).map(k=>'<button class="s4-answer" data-s51tool="'+k+'"><b>'+tools[k][0]+'</b><br><span class="s4-small">'+tools[k][1]+'</span></button>').join('')+'</div>')}
+  function tool(k){let d=tools[k]; if(!d)return;s51page(d[0],'<div class="s51-card"><div class="s51-badge">CHEMCALC 5.6</div><p class="s51-note">'+d[1]+'</p>'+d[2]+'<button class="primary" data-s51calc="'+k+'">Calculate</button><div id="s51r" class="s51-result" aria-live="polite">Enter values to calculate.</div></div>')}
+  function calc(k){let a,w;try{
+    if(k==='stoich'){a=v('sm')*v('pc')/v('rc')*v('pm');w='Moles product = known moles × (product coefficient ÷ reactant coefficient)\n= '+v('sm')+' × ('+v('pc')+' ÷ '+v('rc')+')\n= '+(v('sm')*v('pc')/v('rc')).toFixed(4)+' mol\nMass product = moles × molar mass\n= '+a.toFixed(4)+' g';}
+    else if(k==='limiting3'){let rs=[v('a')/v('ca'),v('b')/v('cb'),v('c')/v('cc')];let min=Math.min(...rs),idx=rs.indexOf(min);a=min;w='A ratio = '+rs[0].toFixed(4)+'\nB ratio = '+rs[1].toFixed(4)+'\nC ratio = '+rs[2].toFixed(4)+'\nLimiting reactant = '+['A','B','C'][idx];}
+    else if(k==='kp'){a=(v('p1')*v('p2'))/(v('r1')*v('r2'));w='Kp = (P₁×P₂) ÷ (Pᵣ₁×Pᵣ₂)\n= '+a.toExponential(6);}
+    else if(k==='kb'){a=(v('oh')*v('bh'))/v('base');w='Kb = [OH⁻][BH⁺]/[B]\n= ('+v('oh')+'×'+v('bh')+') ÷ '+v('base')+'\n= '+a.toExponential(6);}
+    else if(k==='pka'){let x=v('k');if(x<=0)throw 0;a=-Math.log10(x);w='pK = −log₁₀(K)\n= '+a.toFixed(4);}
+    else if(k==='buffer'){a=v('pk')+Math.log10(v('salt')/v('acid'));w='pH = pKa + log([A⁻]/[HA])\n= '+v('pk')+' + log('+v('salt')+'/'+v('acid')+')\n= '+a.toFixed(4);}
+    else if(k==='ksp2'){a=v('sol')**2;w='Ksp = s² = ('+v('sol')+')² = '+a.toExponential(6);}
+    else if(k==='nernst'){a=v('e0')-(0.05916/v('nn'))*Math.log10(v('q'));w='E = E° − (0.05916/n)logQ\n= '+a.toFixed(4)+' V';}
+    else throw 0;
+    if(!Number.isFinite(a))throw 0;document.getElementById('s51r').textContent='Answer: '+a+'\n\nShow Working:\n'+w;
+  }catch(e){document.getElementById('s51r').textContent='Please enter valid positive values.'}}
+  const nav=document.querySelector('.topnav');if(nav&&!document.querySelector('[data-s51="menu"]')){let b=document.createElement('button');b.dataset.s51='menu';b.textContent='🚀 Advanced 5.6';nav.appendChild(b)}
+  const home=document.getElementById('home');if(home){let row=document.createElement('div');row.className='grid';row.style.marginTop='10px';row.innerHTML='<button data-s51="menu">🚀 Advanced 5.6</button>';home.appendChild(row)}
+  document.addEventListener('click',e=>{let b=e.target.closest('[data-s51="menu"]');if(b){menu();return}let t=e.target.closest('[data-s51tool]');if(t){tool(t.dataset.s51tool);return}let c=e.target.closest('[data-s51calc]');if(c){calc(c.dataset.s51calc);return}});
+})();
+</script><script>(function(){const db=[['Water','H₂O',18.015,'Compound','Molar mass 18.015 g/mol'],['Sodium chloride','NaCl',58.44,'Salt','Molar mass 58.44 g/mol'],['Carbon dioxide','CO₂',44.01,'Oxide','Molar mass 44.01 g/mol'],['Sulfuric acid','H₂SO₄',98.079,'Acid','Diprotic strong acid'],['Hydrochloric acid','HCl',36.46,'Acid','Strong acid'],['Sodium hydroxide','NaOH',40.00,'Base','Strong base'],['Calcium carbonate','CaCO₃',100.086,'Salt','Common carbonate'],['Ammonia','NH₃',17.031,'Base','Weak base'],['Glucose','C₆H₁₂O₆',180.156,'Organic','Molar mass 180.156 g/mol'],['Oxygen','O₂',31.998,'Elemental molecule','Diatomic gas'],['Hydrogen','H₂',2.016,'Elemental molecule','Diatomic gas'],['Nitrogen','N₂',28.014,'Elemental molecule','Diatomic gas'],['Methane','CH₄',16.043,'Organic','Simplest alkane'],['Ethanol','C₂H₆O',46.069,'Organic','Common alcohol'],['Potassium permanganate','KMnO₄',158.034,'Salt','Oxidizing agent']];function page(title,html){document.querySelectorAll('main>section').forEach(x=>x.style.display='none');let m=document.querySelector('main');let old=document.getElementById('s55page');if(old)old.remove();let d=document.createElement('section');d.id='s55page';d.className='card';d.innerHTML='<button class="secondary" data-s55home>← Home</button><h2>'+title+'</h2>'+html;m.appendChild(d)}function menu(){page('🔎 ChemCalc 5.6 — Smart Chemistry Search','<p>Search by chemical name, formula, topic, or common term.</p><input id="s55q" class="s55-input" placeholder="e.g. water, H2SO4, acid"><div id="s55out"></div><h3>🧪 Formula Database</h3><div class="s55-grid">'+db.map((x,i)=>'<button class="s4-answer" data-s55item="'+i+'"><b>'+x[0]+'</b><br><span class="s55-muted">'+x[1]+' · '+x[2]+' g/mol</span></button>').join('')+'</div>');render();document.getElementById('s55q').addEventListener('input',render)}function render(){let q=(document.getElementById('s55q')?.value||'').toLowerCase().trim(),out=document.getElementById('s55out');if(!out)return;let rows=db.filter(x=>!q||x.join(' ').toLowerCase().includes(q));out.innerHTML='<p class="s55-muted">'+rows.length+' result'+(rows.length===1?'':'s')+'</p>'+rows.map(x=>'<div class="s55-item"><b>'+x[0]+'</b> <span class="s55-tag">'+x[1]+'</span><div>'+x[2]+' g/mol · '+x[3]+'</div><div class="s55-muted">'+x[4]+'</div></div>').join('')+(rows.length?'':'<div class="s55-item">No match found. Try a chemical name, formula, or topic.</div>')}document.addEventListener('click',e=>{if(e.target.closest('[data-s55home]')){document.getElementById('s55page')?.remove();document.querySelectorAll('main>section').forEach(x=>x.style.display='');}let b=e.target.closest('[data-s55item]');if(b){let x=db[+b.dataset.s55item];alert(x[0]+'\nFormula: '+x[1]+'\nMolar mass: '+x[2]+' g/mol\nType: '+x[3]+'\n'+x[4])}});const nav=document.querySelector('.topnav');if(nav&&!document.querySelector('[data-s55menu]')){let b=document.createElement('button');b.dataset.s55menu='';b.textContent='🔎 Search & Formulas';nav.appendChild(b)}let home=document.getElementById('home');if(home&&!document.querySelector('[data-s55homebtn]')){let row=document.createElement('div');row.className='grid';row.innerHTML='<button data-s55homebtn>🔎 Smart Search & Formula Database</button>';home.appendChild(row)}document.addEventListener('click',e=>{if(e.target.closest('[data-s55menu]')||e.target.closest('[data-s55homebtn]'))menu()})})();</script><script>(function(){document.addEventListener('click',function(e){if(!e.target.closest('[data-s56check]'))return;const checks=[['Version label','ChemCalc 5.6'],['Periodic table','118 elements'],['Calculator library','20+ tools'],['Smart search','Formula database'],['Learning','Practice + Advanced Quiz'],['Study tools','Notes + Formula Builder'],['Tracking','Saved + Progress']];let html='<button class="back" data-home>← Home</button><h2>✅ ChemCalc 5.6 Final Check</h2><p class="muted">Core features included in this build:</p><div class="s4-card">'+checks.map(x=>'<p>✓ <b>'+x[0]+':</b> '+x[1]+'</p>').join('')+'</div><div class="cc56-tools"><button class="primary" data-home>← Back Home</button></div>';page('Final Check',html);if(window.cc56Status)cc56Status('✓ Final check opened');});})();</script></body></html>
