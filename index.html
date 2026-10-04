@@ -1,4 +1,6 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ChemCalc 7.0</title><style>:root{--bg:#f4f6fb;--card:#fff;--txt:#172033;--mut:#68758b;--a:#315ee8;--soft:#edf2ff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}header{background:linear-gradient(135deg,#2862e9,#7437ef);color:white;padding:42px 22px;border-radius:0 0 50px 50px}h1{font-size:42px;margin:0 0 12px}header p{font-size:20px}.badge{display:inline-block;background:#ffffff25;padding:11px 17px;border-radius:24px;font-weight:800}main{max-width:850px;margin:auto;padding:22px 16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}button{border:1px solid #d7deeb;background:var(--card);color:var(--txt);border-radius:19px;padding:18px 12px;min-height:62px;font-size:17px;font-weight:750}button:active{transform:scale(.99)}.panel{background:var(--card);border:1px solid #d7deeb;border-radius:24px;padding:20px;margin-top:20px}input,textarea{width:100%;padding:14px;border:1px solid #d7deeb;border-radius:13px;font-size:16px;margin:7px 0 12px}.primary{background:var(--a);color:#fff}.result,.note{background:var(--soft);border-radius:15px;padding:15px;margin-top:12px;white-space:pre-wrap;line-height:1.5}.muted{color:var(--mut)}.list button{width:100%;text-align:left;margin:5px 0}@media(max-width:520px){.grid{grid-template-columns:1fr}h1{font-size:36px}}</style></head><body>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ChemCalc 7.0</title><style>:root{--bg:#f4f6fb;--card:#fff;--txt:#172033;--mut:#68758b;--a:#315ee8;--soft:#edf2ff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}header{background:linear-gradient(135deg,#2862e9,#7437ef);color:white;padding:42px 22px;border-radius:0 0 50px 50px}h1{font-size:42px;margin:0 0 12px}header p{font-size:20px}.badge{display:inline-block;background:#ffffff25;padding:11px 17px;border-radius:24px;font-weight:800}main{max-width:850px;margin:auto;padding:22px 16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}button{border:1px solid #d7deeb;background:var(--card);color:var(--txt);border-radius:19px;padding:18px 12px;min-height:62px;font-size:17px;font-weight:750}button:active{transform:scale(.99)}.panel{background:var(--card);border:1px solid #d7deeb;border-radius:24px;padding:20px;margin-top:20px}input,textarea{width:100%;padding:14px;border:1px solid #d7deeb;border-radius:13px;font-size:16px;margin:7px 0 12px}.primary{background:var(--a);color:#fff}.result,.note{background:var(--soft);border-radius:15px;padding:15px;margin-top:12px;white-space:pre-wrap;line-height:1.5}.muted{color:var(--mut)}.list button{width:100%;text-align:left;margin:5px 0}@media(max-width:520px){.grid{grid-template-columns:1fr}h1{font-size:36px}}
+body.dark{--bg:#0f1420;--card:#18202e;--txt:#f5f7fb;--mut:#aeb9ca;--a:#6d8cff;--soft:#222c3c}body.dark header{background:linear-gradient(135deg,#182c62,#422071)}body.dark button,body.dark input,body.dark textarea{border-color:#3b475d}
+</style></head><body>
 <header><h1>🧪 ChemCalc 7.0</h1><p>All your chemistry tools in one place</p><span class="badge">FINAL POLISH • 5.6 → 7.0</span></header><main>
 <div class="grid" id="home">
 <button data-i="0">💨 Gas Laws</button><button data-i="1">⚖️ Balance</button>
@@ -23,11 +25,12 @@ const new70=['Rate Law','Arrhenius Equation','Gibbs Free Energy','Osmotic Pressu
 const formulas=['Molarity: M=n/V','Molality: m=moles/kg solvent','Normality: N=equivalents/L','Mole Fraction: χ=nᵢ/nₜ','Density: ρ=m/V','Percent Yield: actual/theoretical × 100','pH: −log[H⁺]','Ideal Gas Law: PV=nRT','Dilution: C₁V₁=C₂V₂','Nernst: E=E°−(0.05916/n)logQ','Buffer pH: pKa+log([A⁻]/[HA])','Ksp (1:1): s²'];
 const tools=['💨 Gas Laws','⚖️ Balance','📝 Practice','🧬 Periodic','🧮 Molar Mass','🔬 Moles','💾 Saved','📊 Progress','📚 Notes','🌙 Dark','🎯 Advanced Quiz','🧩 Formula Builder','🧮 More Calculators','💡 Show Working','🧮 10 More','🚀 Advanced 5.6','🔎 Search & Formulas','🤖 Chemistry Assistant','🧪 Reaction Lab','📈 Data Lab','🧮 10 New 7.0'];
 const home=document.getElementById('home'),panel=document.getElementById('panel');
+try{if(localStorage.getItem('chemcalcDark')==='1'){document.body.classList.add('dark');const db=document.querySelector('[data-i=\"9\"]');if(db)db.textContent='☀️ Light'}}catch(e){}
 home.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>open(Number(b.dataset.i)));
 document.getElementById('search').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase(); if(q){const hit=tools.findIndex(x=>x.toLowerCase().includes(q)); if(hit>=0) open(hit);}});
 function inp(id,label){return `<label>${label}<input id="${id}" type="number" step="any"></label>`}
-function calc(title,fields,fn){panel.innerHTML=`<h2>${title}</h2>${fields}<button class="primary" id="go">Calculate</button><div id="r"></div>`;document.getElementById('go').onclick=()=>{try{let x=fn();document.getElementById('r').innerHTML='<div class="result">'+x+'</div>';localStorage.setItem('lastCalc',title+'\n'+x)}catch(e){document.getElementById('r').innerHTML='<div class="result">⚠️ '+e.message+'</div>'}}}
-function list(title,arr,cb){panel.innerHTML=`<h2>${title}</h2><p class="muted">${arr.length} tools</p><div class="list"></div>`;let l=panel.querySelector('.list');arr.forEach(x=>{let b=document.createElement('button');b.textContent=x;b.onclick=()=>cb(x);l.appendChild(b)})}
+function calc(title,fields,fn){panel.innerHTML=`<button type="button" onclick="goHome()">← Home</button><h2>${title}</h2>${fields}<button class="primary" id="go">Calculate</button><div id="r"></div>`;document.getElementById('go').onclick=()=>{try{let x=fn();document.getElementById('r').innerHTML='<div class="result">'+x+'</div>';localStorage.setItem('lastCalc',title+'\n'+x)}catch(e){document.getElementById('r').innerHTML='<div class="result">⚠️ '+e.message+'</div>'}}}
+function list(title,arr,cb){panel.innerHTML=`<button type="button" onclick="goHome()">← Home</button><h2>${title}</h2><p class="muted">${arr.length} tools</p><div class="list"></div>`;let l=panel.querySelector('.list');arr.forEach(x=>{let b=document.createElement('button');b.textContent=x;b.onclick=()=>cb(x);l.appendChild(b)})}
 
 const moreStep1=['% Composition','Empirical Formula','Molecular Formula','Concentration','Dilution','pH','pOH','Stoichiometry','Smart Search & Formula Database'];
 
@@ -94,7 +97,117 @@ function calculators70Home(){
  <button onclick="new70List()">✨ 7.0 — 10 NEW Calculators</button>
  </div>`;
 }
-function open(i){if(i===0)return calc('💨 Gas Laws',inp('n','Moles')+inp('T','Temperature (K)')+inp('V','Volume (L)'),'');if(i===1)return panel.innerHTML='<h2>⚖️ Balance</h2><input placeholder="H2 + O2 -> H2O"><div class="result">Balance equations by conserving each element. 7.0 keeps the Balance tool available.</div>';if(i===2||i===10)return panel.innerHTML='<h2>📝 Practice</h2><div class="note">What is the molar mass of H₂O?</div><button class="primary" onclick="this.nextElementSibling.textContent=\'18.015 g/mol\'">Show Answer</button><div class="result"></div>';if(i===3)return panel.innerHTML='<h2>🧬 Periodic Table</h2><p class="muted">118-element explorer preserved for the 7.0 study area.</p><input placeholder="Search element e.g. Fe or O"><div class="result">Use the search field to find an element.</div>';if(i===4)return calc('🧮 Molar Mass','<input id="f" placeholder="H2O"><p class="muted">Use formulas such as H2O, NaCl, H2SO4.</p>',()=>{let f=document.getElementById('f').value.trim();let m={H:1.008,O:15.999,Na:22.990,Cl:35.45,S:32.06,C:12.011,Ca:40.078};let a=f.match(/([A-Z][a-z]?)(\d*)/g)||[];let total=0;for(let z of a){let q=z.match(/([A-Z][a-z]?)(\d*)/),n=+(q[2]||1);if(!m[q[1]])throw Error('Element not in this quick parser.');total+=m[q[1]]*n}return 'Molar mass = '+total.toFixed(3)+' g/mol'});if(i===5)return calc('🔬 Moles',inp('a','Mass (g)')+inp('b','Molar mass (g/mol)'),()=>`n = ${v('a')}/${v('b')} = <b>${(v('a')/v('b')).toFixed(4)} mol</b>`);if(i===6)return panel.innerHTML='<h2>💾 Saved</h2><div class="result">'+(localStorage.getItem('lastCalc')||'No saved calculation yet.')+'</div>';if(i===7)return panel.innerHTML='<h2>📊 Progress</h2><div class="result">Your latest calculation is saved locally on this device.</div>';if(i===8)return panel.innerHTML='<h2>📚 Notes</h2><div class="note"><b>Autoionization:</b> Kw=[H⁺][OH⁻]=1.0×10⁻¹⁴ at 25°C.</div><div class="note"><b>Stoichiometry:</b> balance first, then use mole ratios.</div>';if(i===9){document.body.style.background='#111722';document.querySelectorAll('button,input,.panel').forEach(x=>{x.style.background='#1b2230';x.style.color='#fff';x.style.borderColor='#39445a'});return}if(i===11)return list('🧩 Formula Builder',formulas,x=>panel.innerHTML='<h2>🧩 Formula Builder</h2><div class="result">'+x+'</div>');if(i===12)return calculators70Home();if(i===14)return list('🧮 More Calculators — Step 2',more,simple);if(i===13)return panel.innerHTML='<h2>💡 Show Working</h2><div class="result">Each calculator shows its formula, substitution and final answer where applicable.</div>';if(i===15)return list('🚀 ChemCalc 5.6 — Advanced Tools',adv,advanced);if(i===16)return searchForm();if(i===17)return panel.innerHTML='<h2>🤖 Chemistry Assistant</h2><textarea rows="4" placeholder="Ask a chemistry question..."></textarea><div class="result">Use a formula, substitute values, calculate and check units.</div>';if(i===18)return panel.innerHTML='<h2>🧪 Reaction Lab</h2><input placeholder="H2 + O2 -> H2O"><div class="result">Reaction analysis tools are available here in 7.0.</div>';if(i===19)return panel.innerHTML='<h2>📈 Data Lab</h2><textarea rows="4" placeholder="12, 18, 21, 15"></textarea><div class="result">Enter chemistry data for analysis.</div>';if(i===20)return new70List()}
+
+function parseChemFormula(s){
+  s=s.replace(/\s+/g,'');
+  let i=0;
+  function readNum(){
+    let st=i;
+    while(i<s.length && /\d/.test(s[i])) i++;
+    return st===i?1:parseInt(s.slice(st,i),10);
+  }
+  function group(stop){
+    const out={};
+    while(i<s.length && s[i]!==stop){
+      if(s[i]==='('){
+        i++;
+        const inside=group(')');
+        if(s[i]!==')') throw new Error('Unmatched parenthesis');
+        i++;
+        const mult=readNum();
+        for(const e in inside) out[e]=(out[e]||0)+inside[e]*mult;
+      }else{
+        const m=s.slice(i).match(/^([A-Z][a-z]?)/);
+        if(!m) throw new Error('Invalid formula near '+s.slice(i));
+        const el=m[1]; i+=el.length;
+        const mult=readNum();
+        out[el]=(out[el]||0)+mult;
+      }
+    }
+    return out;
+  }
+  const result=group('');
+  if(i!==s.length) throw new Error('Invalid formula');
+  return result;
+}
+function solveBalance(equation){
+  let parts=equation.replace(/→|⟶|=/g,'->').split('->');
+  if(parts.length!==2) throw new Error('Use → or -> between reactants and products.');
+  const sides=parts.map(x=>x.split('+').map(t=>t.trim()).filter(Boolean));
+  if(!sides[0].length||!sides[1].length) throw new Error('Both sides need compounds.');
+  const terms=[...sides[0],...sides[1]];
+  const clean=terms.map(t=>t.replace(/^\d+(?:\.\d+)?\s*/,''));
+  const counts=clean.map(parseChemFormula);
+  const elements=[...new Set(counts.flatMap(x=>Object.keys(x)))];
+  const A=elements.map(el=>counts.map((c,j)=>(j<sides[0].length?1:-1)*(c[el]||0)));
+  const m=A.length,n=terms.length;
+  // Gaussian elimination on a numeric matrix; stoichiometric matrices are small.
+  const M=A.map(r=>r.map(Number));
+  let row=0; const piv=[];
+  for(let col=0;col<n && row<m;col++){
+    let best=row;
+    for(let r=row+1;r<m;r++) if(Math.abs(M[r][col])>Math.abs(M[best][col])) best=r;
+    if(Math.abs(M[best][col])<1e-10) continue;
+    [M[row],M[best]]=[M[best],M[row]];
+    const div=M[row][col]; for(let c=col;c<n;c++) M[row][c]/=div;
+    for(let r=0;r<m;r++) if(r!==row){
+      const f=M[r][col];
+      if(Math.abs(f)>1e-10) for(let c=col;c<n;c++) M[r][c]-=f*M[row][c];
+    }
+    piv.push(col); row++;
+  }
+  const free=[];
+  for(let c=0;c<n;c++) if(!piv.includes(c)) free.push(c);
+  if(!free.length) throw new Error('No non-zero balancing solution found.');
+  const x=new Array(n).fill(0);
+  x[free[free.length-1]]=1;
+  for(let r=piv.length-1;r>=0;r--){
+    const pc=piv[r];
+    let sum=0;
+    for(let c=pc+1;c<n;c++) sum+=M[r][c]*x[c];
+    x[pc]=-sum;
+  }
+  if(x.some(v=>Math.abs(v)<1e-9)) throw new Error('Could not determine a unique balance.');
+  const denoms=x.map(v=>{
+    let bestD=1,bestErr=Math.abs(v);
+    for(let d=1;d<=1000;d++){
+      const err=Math.abs(v-Math.round(v*d)/d);
+      if(err<bestErr){bestErr=err;bestD=d;if(err<1e-10)break;}
+    }
+    return bestD;
+  });
+  const lcm=(a,b)=>Math.abs(a*b)/gcd(a,b);
+  const gcd=(a,b)=>{a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1};
+  let L=1; for(const d of denoms)L=lcm(L,d);
+  let ints=x.map(v=>Math.round(v*L));
+  let g=0; for(const z of ints)g=gcd(g,z);
+  ints=ints.map(z=>z/g);
+  if(ints.some(z=>z<0)) ints=ints.map(z=>-z);
+  if(ints.some(z=>z<=0)) throw new Error('Could not find positive coefficients.');
+  const left=ints.slice(0,sides[0].length).map((c,j)=>c+clean[j]).join(' + ');
+  const right=ints.slice(sides[0].length).map((c,j)=>c+clean[j+sides[0].length]).join(' + ');
+  return {equation:left+' → '+right, coefficients:ints};
+}
+function balanceUI(){
+  panel.innerHTML='<h2>⚖️ Equation Balancer</h2><p class="muted">Enter an unbalanced equation, for example H2 + O2 → H2O.</p><input id="balEq" value="H2 + O2 → H2O" placeholder="Reactants + Reactants → Products"><button class="primary" id="balGo">Balance Equation</button><div id="balResult" class="result"></div>';
+  document.getElementById('balGo').addEventListener('click',()=>{
+    const out=document.getElementById('balResult');
+    try{
+      const r=solveBalance(document.getElementById('balEq').value);
+      out.innerHTML='<b>Balanced:</b> '+r.equation+'<br><small>Coefficients: '+r.coefficients.join(' : ')+'</small>';
+    }catch(e){out.textContent='⚠️ '+e.message;}
+  });
+}
+
+function goHome(){window.scrollTo({top:0,behavior:'smooth'});panel.innerHTML='<h2>✓ ChemCalc 7.0 ready</h2><p class="muted">Final Polish 5.6 tools preserved, with 7.0 additions.</p>'}
+function open(i){if(i===0)return calc('💨 Gas Laws',inp('n','Moles')+inp('T','Temperature (K)')+inp('V','Volume (L)'),'');if(i===1)return balanceUI();if(i===2||i===10)return panel.innerHTML='<h2>📝 Practice</h2><div class="note">What is the molar mass of H₂O?</div><button class="primary" onclick="this.nextElementSibling.textContent=\'18.015 g/mol\'">Show Answer</button><div class="result"></div>';if(i===3)return panel.innerHTML='<h2>🧬 Periodic Table</h2><p class="muted">118-element explorer preserved for the 7.0 study area.</p><input placeholder="Search element e.g. Fe or O"><div class="result">Use the search field to find an element.</div>';if(i===4)return calc('🧮 Molar Mass','<input id="f" placeholder="H2O"><p class="muted">Use formulas such as H2O, NaCl, H2SO4.</p>',()=>{let f=document.getElementById('f').value.trim();let m={H:1.008,O:15.999,Na:22.990,Cl:35.45,S:32.06,C:12.011,Ca:40.078};let a=f.match(/([A-Z][a-z]?)(\d*)/g)||[];let total=0;for(let z of a){let q=z.match(/([A-Z][a-z]?)(\d*)/),n=+(q[2]||1);if(!m[q[1]])throw Error('Element not in this quick parser.');total+=m[q[1]]*n}return 'Molar mass = '+total.toFixed(3)+' g/mol'});if(i===5)return calc('🔬 Moles',inp('a','Mass (g)')+inp('b','Molar mass (g/mol)'),()=>`n = ${v('a')}/${v('b')} = <b>${(v('a')/v('b')).toFixed(4)} mol</b>`);if(i===6)return panel.innerHTML='<h2>💾 Saved</h2><div class="result">'+(localStorage.getItem('lastCalc')||'No saved calculation yet.')+'</div>';if(i===7)return panel.innerHTML='<h2>📊 Progress</h2><div class="result">Your latest calculation is saved locally on this device.</div>';if(i===8)return panel.innerHTML='<h2>📚 Notes</h2><div class="note"><b>Autoionization:</b> Kw=[H⁺][OH⁻]=1.0×10⁻¹⁴ at 25°C.</div><div class="note"><b>Stoichiometry:</b> balance first, then use mole ratios.</div>';if(i===9){
+  const dark=!document.body.classList.contains('dark');
+  document.body.classList.toggle('dark',dark);
+  const b=document.querySelector('[data-i=\"9\"]');
+  if(b)b.textContent=dark?'☀️ Light':'🌙 Dark';
+  try{localStorage.setItem('chemcalcDark',dark?'1':'0')}catch(e){}
+  return;
+}if(i===11)return list('🧩 Formula Builder',formulas,x=>panel.innerHTML='<h2>🧩 Formula Builder</h2><div class="result">'+x+'</div>');if(i===12)return calculators70Home();if(i===14)return list('🧮 More Calculators — Step 2',more,simple);if(i===13)return panel.innerHTML='<h2>💡 Show Working</h2><div class="result">Each calculator shows its formula, substitution and final answer where applicable.</div>';if(i===15)return list('🚀 ChemCalc 5.6 — Advanced Tools',adv,advanced);if(i===16)return searchForm();if(i===17)return panel.innerHTML='<h2>🤖 Chemistry Assistant</h2><textarea rows="4" placeholder="Ask a chemistry question..."></textarea><div class="result">Use a formula, substitute values, calculate and check units.</div>';if(i===18)return panel.innerHTML='<h2>🧪 Reaction Lab</h2><input placeholder="H2 + O2 -> H2O"><div class="result">Reaction analysis tools are available here in 7.0.</div>';if(i===19)return panel.innerHTML='<h2>📈 Data Lab</h2><textarea rows="4" placeholder="12, 18, 21, 15"></textarea><div class="result">Enter chemistry data for analysis.</div>';if(i===20)return new70List()}
 
 function new70List(){
   return list('🧮 10 New Calculators — ChemCalc 7.0',new70,new70Calc);
