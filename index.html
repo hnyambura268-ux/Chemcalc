@@ -11,21 +11,109 @@
 <button data-i="14">🧮 10 More</button><button data-i="15">🚀 Advanced 5.6</button>
 <button data-i="16">🔎 Search &amp; Formulas</button><button data-i="17">🤖 Chemistry Assistant</button>
 <button data-i="18">🧪 Reaction Lab</button><button data-i="19">📈 Data Lab</button>
+<button data-i="20">🧮 10 New 7.0</button>
 </div>
 <input id="search" placeholder="🔍 Search ChemCalc...">
 <section id="panel" class="panel"><h2>✓ ChemCalc 7.0 ready</h2><p class="muted">Final Polish 5.6 tools preserved, with 7.0 additions.</p></section></main>
 <script>
 const more=['Molarity','Molality','Normality','Mole Fraction','Mass Percentage','Parts Per Million','Parts Per Billion','Density','Avogadro Calculator','Percent Yield'];
 const adv=['Advanced Stoichiometry','Limiting Reactant — 3 Reactants','Equilibrium Kp','Kb','pKa / pKb','Buffer pH','Ksp — 1:1 Salt','Nernst Equation'];
+const new70=['Rate Law','Arrhenius Equation','Gibbs Free Energy','Osmotic Pressure','Freezing Point Depression','Boiling Point Elevation','pH from [H⁺]','pOH from [OH⁻]','Cell Potential','Faraday Electrolysis'];
+
 const formulas=['Molarity: M=n/V','Molality: m=moles/kg solvent','Normality: N=equivalents/L','Mole Fraction: χ=nᵢ/nₜ','Density: ρ=m/V','Percent Yield: actual/theoretical × 100','pH: −log[H⁺]','Ideal Gas Law: PV=nRT','Dilution: C₁V₁=C₂V₂','Nernst: E=E°−(0.05916/n)logQ','Buffer pH: pKa+log([A⁻]/[HA])','Ksp (1:1): s²'];
-const tools=['💨 Gas Laws','⚖️ Balance','📝 Practice','🧬 Periodic','🧮 Molar Mass','🔬 Moles','💾 Saved','📊 Progress','📚 Notes','🌙 Dark','🎯 Advanced Quiz','🧩 Formula Builder','🧮 More Calculators','💡 Show Working','🧮 10 More','🚀 Advanced 5.6','🔎 Search & Formulas','🤖 Chemistry Assistant','🧪 Reaction Lab','📈 Data Lab'];
+const tools=['💨 Gas Laws','⚖️ Balance','📝 Practice','🧬 Periodic','🧮 Molar Mass','🔬 Moles','💾 Saved','📊 Progress','📚 Notes','🌙 Dark','🎯 Advanced Quiz','🧩 Formula Builder','🧮 More Calculators','💡 Show Working','🧮 10 More','🚀 Advanced 5.6','🔎 Search & Formulas','🤖 Chemistry Assistant','🧪 Reaction Lab','📈 Data Lab','🧮 10 New 7.0'];
 const home=document.getElementById('home'),panel=document.getElementById('panel');
 home.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>open(Number(b.dataset.i)));
 document.getElementById('search').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase(); if(q){const hit=tools.findIndex(x=>x.toLowerCase().includes(q)); if(hit>=0) open(hit);}});
 function inp(id,label){return `<label>${label}<input id="${id}" type="number" step="any"></label>`}
 function calc(title,fields,fn){panel.innerHTML=`<h2>${title}</h2>${fields}<button class="primary" id="go">Calculate</button><div id="r"></div>`;document.getElementById('go').onclick=()=>{try{let x=fn();document.getElementById('r').innerHTML='<div class="result">'+x+'</div>';localStorage.setItem('lastCalc',title+'\n'+x)}catch(e){document.getElementById('r').innerHTML='<div class="result">⚠️ '+e.message+'</div>'}}}
 function list(title,arr,cb){panel.innerHTML=`<h2>${title}</h2><p class="muted">${arr.length} tools</p><div class="list"></div>`;let l=panel.querySelector('.list');arr.forEach(x=>{let b=document.createElement('button');b.textContent=x;b.onclick=()=>cb(x);l.appendChild(b)})}
-function open(i){if(i===0)return calc('💨 Gas Laws',inp('n','Moles')+inp('T','Temperature (K)')+inp('V','Volume (L)'),'');if(i===1)return panel.innerHTML='<h2>⚖️ Balance</h2><input placeholder="H2 + O2 -> H2O"><div class="result">Balance equations by conserving each element. 7.0 keeps the Balance tool available.</div>';if(i===2||i===10)return panel.innerHTML='<h2>📝 Practice</h2><div class="note">What is the molar mass of H₂O?</div><button class="primary" onclick="this.nextElementSibling.textContent=\'18.015 g/mol\'">Show Answer</button><div class="result"></div>';if(i===3)return panel.innerHTML='<h2>🧬 Periodic Table</h2><p class="muted">118-element explorer preserved for the 7.0 study area.</p><input placeholder="Search element e.g. Fe or O"><div class="result">Use the search field to find an element.</div>';if(i===4)return calc('🧮 Molar Mass','<input id="f" placeholder="H2O"><p class="muted">Use formulas such as H2O, NaCl, H2SO4.</p>',()=>{let f=document.getElementById('f').value.trim();let m={H:1.008,O:15.999,Na:22.990,Cl:35.45,S:32.06,C:12.011,Ca:40.078};let a=f.match(/([A-Z][a-z]?)(\d*)/g)||[];let total=0;for(let z of a){let q=z.match(/([A-Z][a-z]?)(\d*)/),n=+(q[2]||1);if(!m[q[1]])throw Error('Element not in this quick parser.');total+=m[q[1]]*n}return 'Molar mass = '+total.toFixed(3)+' g/mol'});if(i===5)return calc('🔬 Moles',inp('a','Mass (g)')+inp('b','Molar mass (g/mol)'),()=>`n = ${v('a')}/${v('b')} = <b>${(v('a')/v('b')).toFixed(4)} mol</b>`);if(i===6)return panel.innerHTML='<h2>💾 Saved</h2><div class="result">'+(localStorage.getItem('lastCalc')||'No saved calculation yet.')+'</div>';if(i===7)return panel.innerHTML='<h2>📊 Progress</h2><div class="result">Your latest calculation is saved locally on this device.</div>';if(i===8)return panel.innerHTML='<h2>📚 Notes</h2><div class="note"><b>Autoionization:</b> Kw=[H⁺][OH⁻]=1.0×10⁻¹⁴ at 25°C.</div><div class="note"><b>Stoichiometry:</b> balance first, then use mole ratios.</div>';if(i===9){document.body.style.background='#111722';document.querySelectorAll('button,input,.panel').forEach(x=>{x.style.background='#1b2230';x.style.color='#fff';x.style.borderColor='#39445a'});return}if(i===11)return list('🧩 Formula Builder',formulas,x=>panel.innerHTML='<h2>🧩 Formula Builder</h2><div class="result">'+x+'</div>');if(i===12||i===14)return list('🧮 More Calculators — Step 2',more,simple);if(i===13)return panel.innerHTML='<h2>💡 Show Working</h2><div class="result">Each calculator shows its formula, substitution and final answer where applicable.</div>';if(i===15)return list('🚀 ChemCalc 5.6 — Advanced Tools',adv,advanced);if(i===16)return searchForm();if(i===17)return panel.innerHTML='<h2>🤖 Chemistry Assistant</h2><textarea rows="4" placeholder="Ask a chemistry question..."></textarea><div class="result">Use a formula, substitute values, calculate and check units.</div>';if(i===18)return panel.innerHTML='<h2>🧪 Reaction Lab</h2><input placeholder="H2 + O2 -> H2O"><div class="result">Reaction analysis tools are available here in 7.0.</div>';if(i===19)return panel.innerHTML='<h2>📈 Data Lab</h2><textarea rows="4" placeholder="12, 18, 21, 15"></textarea><div class="result">Enter chemistry data for analysis.</div>'}
+
+const moreStep1=['% Composition','Empirical Formula','Molecular Formula','Concentration','Dilution','pH','pOH','Stoichiometry','Smart Search & Formula Database'];
+
+function step1List(){
+  list('🧮 More Calculators — Step 1',moreStep1,step1Calc);
+}
+function step1Calc(x){
+  if(x==='Smart Search & Formula Database') return smartDatabase();
+  if(x==='% Composition') return calc('% Composition',
+    inp('a','Mass of element (g)')+inp('b','Total compound mass (g)'),
+    ()=>`% composition = (mass element / total mass) × 100 = <b>${(v('a')/v('b')*100).toFixed(3)}%</b>`);
+  if(x==='Empirical Formula') return panel.innerHTML=
+    '<h2>Empirical Formula</h2><p class="muted">Enter element symbols and their relative amounts.</p>'+
+    '<input id="emp" placeholder="Example: C:40, H:6.7, O:53.3">'+
+    '<button class="primary" id="empGo">Calculate</button><div id="r"></div>'+
+    '<small>For full accuracy, convert percentages to moles, divide by the smallest, then multiply to whole-number ratios.</small>';
+  if(x==='Molecular Formula') return panel.innerHTML=
+    '<h2>Molecular Formula</h2>'+inp('mf','Molar mass (g/mol)')+
+    '<input id="ef" placeholder="Empirical formula, e.g. CH2O">'+
+    '<button class="primary" id="mfGo">Calculate</button><div id="r"></div>';
+  if(x==='Concentration') return calc('Concentration',
+    inp('a','Amount of solute (mol)')+inp('b','Solution volume (L)'),
+    ()=>`C = n/V = <b>${(v('a')/v('b')).toFixed(4)} mol/L</b>`);
+  if(x==='Dilution') return calc('Dilution',
+    inp('a','C₁')+inp('b','V₁')+inp('c','C₂'),
+    ()=>`V₂ = C₁V₁/C₂ = <b>${(v('a')*v('b')/v('c')).toFixed(4)}</b>`);
+  if(x==='pH') return calc('pH',inp('a','[H⁺] (mol/L)'),()=>`pH = −log[H⁺] = <b>${(-Math.log10(v('a'))).toFixed(4)}</b>`);
+  if(x==='pOH') return calc('pOH',inp('a','[OH⁻] (mol/L)'),()=>`pOH = −log[OH⁻] = <b>${(-Math.log10(v('a'))).toFixed(4)}</b>`);
+  if(x==='Stoichiometry') return calc('Stoichiometry',
+    inp('a','Known moles')+inp('b','Known coefficient')+inp('c','Wanted coefficient'),
+    ()=>`Wanted moles = known moles × wanted coefficient / known coefficient = <b>${(v('a')*v('c')/v('b')).toFixed(4)} mol</b>`);
+}
+
+function smartDatabase(){
+  const db=[
+    'Molarity — M = n/V',
+    'Molality — m = moles solute/kg solvent',
+    'Normality — N = equivalents/L',
+    'Mole Fraction — χ = nᵢ/nₜ',
+    'Density — ρ = m/V',
+    'Percent Yield — actual/theoretical × 100',
+    'pH — −log[H⁺]',
+    'pOH — −log[OH⁻]',
+    'Ideal Gas Law — PV = nRT',
+    'Dilution — C₁V₁ = C₂V₂',
+    'Buffer pH — pH = pKa + log([A⁻]/[HA])',
+    'Nernst — E = E° − (0.05916/n)logQ',
+    'Ksp (1:1 salt) — Ksp = s²',
+    'Gibbs Free Energy — ΔG = ΔH − TΔS'
+  ];
+  panel.innerHTML='<h2>🔎 Smart Search & Formula Database</h2><p class="muted">Search chemistry formulas and calculator topics.</p><input id="dbq" placeholder="Search e.g. pH, gas, molarity..."><div id="dbl" class="list"></div>';
+  const render=()=>{
+    const q=document.getElementById('dbq').value.toLowerCase();
+    document.getElementById('dbl').innerHTML=db.filter(x=>x.toLowerCase().includes(q)).map(x=>'<div class="note">'+x+'</div>').join('')||'<p class="muted">No matching formula found.</p>';
+  };
+  document.getElementById('dbq').oninput=render; render();
+}
+
+function open(i){if(i===0)return calc('💨 Gas Laws',inp('n','Moles')+inp('T','Temperature (K)')+inp('V','Volume (L)'),'');if(i===1)return panel.innerHTML='<h2>⚖️ Balance</h2><input placeholder="H2 + O2 -> H2O"><div class="result">Balance equations by conserving each element. 7.0 keeps the Balance tool available.</div>';if(i===2||i===10)return panel.innerHTML='<h2>📝 Practice</h2><div class="note">What is the molar mass of H₂O?</div><button class="primary" onclick="this.nextElementSibling.textContent=\'18.015 g/mol\'">Show Answer</button><div class="result"></div>';if(i===3)return panel.innerHTML='<h2>🧬 Periodic Table</h2><p class="muted">118-element explorer preserved for the 7.0 study area.</p><input placeholder="Search element e.g. Fe or O"><div class="result">Use the search field to find an element.</div>';if(i===4)return calc('🧮 Molar Mass','<input id="f" placeholder="H2O"><p class="muted">Use formulas such as H2O, NaCl, H2SO4.</p>',()=>{let f=document.getElementById('f').value.trim();let m={H:1.008,O:15.999,Na:22.990,Cl:35.45,S:32.06,C:12.011,Ca:40.078};let a=f.match(/([A-Z][a-z]?)(\d*)/g)||[];let total=0;for(let z of a){let q=z.match(/([A-Z][a-z]?)(\d*)/),n=+(q[2]||1);if(!m[q[1]])throw Error('Element not in this quick parser.');total+=m[q[1]]*n}return 'Molar mass = '+total.toFixed(3)+' g/mol'});if(i===5)return calc('🔬 Moles',inp('a','Mass (g)')+inp('b','Molar mass (g/mol)'),()=>`n = ${v('a')}/${v('b')} = <b>${(v('a')/v('b')).toFixed(4)} mol</b>`);if(i===6)return panel.innerHTML='<h2>💾 Saved</h2><div class="result">'+(localStorage.getItem('lastCalc')||'No saved calculation yet.')+'</div>';if(i===7)return panel.innerHTML='<h2>📊 Progress</h2><div class="result">Your latest calculation is saved locally on this device.</div>';if(i===8)return panel.innerHTML='<h2>📚 Notes</h2><div class="note"><b>Autoionization:</b> Kw=[H⁺][OH⁻]=1.0×10⁻¹⁴ at 25°C.</div><div class="note"><b>Stoichiometry:</b> balance first, then use mole ratios.</div>';if(i===9){document.body.style.background='#111722';document.querySelectorAll('button,input,.panel').forEach(x=>{x.style.background='#1b2230';x.style.color='#fff';x.style.borderColor='#39445a'});return}if(i===11)return list('🧩 Formula Builder',formulas,x=>panel.innerHTML='<h2>🧩 Formula Builder</h2><div class="result">'+x+'</div>');if(i===12)return step1List();if(i===14)return list('🧮 More Calculators — Step 2',more,simple);if(i===13)return panel.innerHTML='<h2>💡 Show Working</h2><div class="result">Each calculator shows its formula, substitution and final answer where applicable.</div>';if(i===15)return list('🚀 ChemCalc 5.6 — Advanced Tools',adv,advanced);if(i===16)return searchForm();if(i===17)return panel.innerHTML='<h2>🤖 Chemistry Assistant</h2><textarea rows="4" placeholder="Ask a chemistry question..."></textarea><div class="result">Use a formula, substitute values, calculate and check units.</div>';if(i===18)return panel.innerHTML='<h2>🧪 Reaction Lab</h2><input placeholder="H2 + O2 -> H2O"><div class="result">Reaction analysis tools are available here in 7.0.</div>';if(i===19)return panel.innerHTML='<h2>📈 Data Lab</h2><textarea rows="4" placeholder="12, 18, 21, 15"></textarea><div class="result">Enter chemistry data for analysis.</div>';if(i===20)return new70List()}
+
+function new70List(){
+  return list('🧮 10 New Calculators — ChemCalc 7.0',new70,new70Calc);
+}
+function new70Calc(x){
+  const f={
+    'Rate Law':[inp('a','Rate constant k')+inp('b','Concentration [A]')+inp('c','Reaction order n'),
+      ()=>`Rate = k[A]ⁿ = <b>${(v('a')*Math.pow(v('b'),v('c'))).toExponential(6)}</b> (concentration/time)`],
+    'Arrhenius Equation':[inp('a','Activation energy Ea (J/mol)')+inp('b','Temperature T (K)')+inp('c','Pre-exponential factor A'),
+      ()=>`k = A·e⁻ᴱᵃ⁄ᴿᵀ = <b>${(v('c')*Math.exp(-v('a')/(8.314*v('b')))).toExponential(6)}</b>`],
+    'Gibbs Free Energy':[inp('a','Enthalpy ΔH (kJ/mol)')+inp('b','Temperature T (K)')+inp('c','Entropy ΔS (J/mol·K)'),
+      ()=>`ΔG = ΔH − TΔS = <b>${(v('a')-v('b')*v('c')/1000).toFixed(4)} kJ/mol</b>`],
+    'Osmotic Pressure':[inp('a','Molar concentration (mol/L)')+inp('b','Temperature (K)')+inp('c','Van’t Hoff factor i'),
+      ()=>`π = iMRT = <b>${(v('c')*v('a')*0.082057*v('b')).toFixed(4)} atm</b>`],
+    'Freezing Point Depression':[inp('a','Kf (°C·kg/mol)')+inp('b','Molality (mol/kg)')+inp('c','Van’t Hoff factor i'),
+      ()=>`ΔTf = iKf m = <b>${(v('c')*v('a')*v('b')).toFixed(4)} °C</b>`],
+    'Boiling Point Elevation':[inp('a','Kb (°C·kg/mol)')+inp('b','Molality (mol/kg)')+inp('c','Van’t Hoff factor i'),
+      ()=>`ΔTb = iKb m = <b>${(v('c')*v('a')*v('b')).toFixed(4)} °C</b>`],
+    'pH from [H⁺]':[inp('a','[H⁺] (mol/L)'),()=>`pH = −log[H⁺] = <b>${(-Math.log10(v('a'))).toFixed(4)}</b>`],
+    'pOH from [OH⁻]':[inp('a','[OH⁻] (mol/L)'),()=>`pOH = −log[OH⁻] = <b>${(-Math.log10(v('a'))).toFixed(4)}</b>`],
+    'Cell Potential':[inp('a','E° cathode (V)')+inp('b','E° anode (V)'),()=>`E°cell = E°cathode − E°anode = <b>${(v('a')-v('b')).toFixed(4)} V</b>`],
+    'Faraday Electrolysis':[inp('a','Current I (A)')+inp('b','Time t (s)')+inp('c','Molar mass M (g/mol)')+inp('d','Electrons n'),
+      ()=>`Mass = ItM/(nF) = <b>${(v('a')*v('b')*v('c')/(v('d')*96485)).toFixed(6)} g</b>`]
+  }[x];
+  calc(x,f[0],f[1]);
+}
+
 function v(id){return parseFloat(document.getElementById(id).value)}
 function simple(x){let f={Molarity:[inp('a','Moles')+inp('b','Volume (L)'),()=>`M=n/V=<b>${(v('a')/v('b')).toFixed(4)} mol/L</b>`],Molality:[inp('a','Moles solute')+inp('b','kg solvent'),()=>`m=<b>${(v('a')/v('b')).toFixed(4)} mol/kg</b>`],Normality:[inp('a','Equivalents')+inp('b','Litres'),()=>`N=<b>${(v('a')/v('b')).toFixed(4)} eq/L</b>`],'Mole Fraction':[inp('a','Component moles')+inp('b','Total moles'),()=>`χ=<b>${(v('a')/v('b')).toFixed(4)}</b>`],'Mass Percentage':[inp('a','Mass solute')+inp('b','Mass solution'),()=>`%=<b>${(v('a')/v('b')*100).toFixed(3)}%</b>`],'Parts Per Million':[inp('a','Mass solute')+inp('b','Mass solution'),()=>`ppm=<b>${(v('a')/v('b')*1e6).toFixed(3)}</b>`],'Parts Per Billion':[inp('a','Mass solute')+inp('b','Mass solution'),()=>`ppb=<b>${(v('a')/v('b')*1e9).toFixed(3)}</b>`],Density:[inp('a','Mass')+inp('b','Volume'),()=>`ρ=<b>${(v('a')/v('b')).toFixed(4)}</b>`],'Avogadro Calculator':[inp('a','Moles'),()=>`Particles=<b>${(v('a')*6.02214076e23).toExponential(6)}</b>`],'Percent Yield':[inp('a','Actual')+inp('b','Theoretical'),()=>`% yield=<b>${(v('a')/v('b')*100).toFixed(3)}%</b>`]}[x];calc(x,f[0],f[1])}
 function advanced(x){let f={'Advanced Stoichiometry':[inp('a','Known moles')+inp('b','Known coefficient')+inp('c','Wanted coefficient'),()=>`Wanted moles=<b>${(v('a')*v('c')/v('b')).toFixed(4)}</b>`],'Limiting Reactant — 3 Reactants':[inp('a','Moles A')+inp('b','Coeff A')+inp('c','Moles B')+inp('d','Coeff B')+inp('e','Moles C')+inp('f','Coeff C'),()=>{let r=[v('a')/v('b'),v('c')/v('d'),v('e')/v('f')];return `Ratios: ${r.map(x=>x.toFixed(4)).join(', ')}\n<b>Limiting: ${['A','B','C'][r.indexOf(Math.min(...r))]}</b>`}], 'Equilibrium Kp':[inp('a','Product pressure term')+inp('b','Reactant pressure term'),()=>`Kp=<b>${(v('a')/v('b')).toFixed(6)}</b>`],Kb:[inp('a','[OH⁻]')+inp('b','[BH⁺]')+inp('c','[B]'),()=>`Kb=<b>${(v('a')*v('b')/v('c')).toExponential(6)}</b>`],'pKa / pKb':[inp('a','Ka or Kb'),()=>`pK=<b>${(-Math.log10(v('a'))).toFixed(4)}</b>`],'Buffer pH':[inp('a','pKa')+inp('b','[A⁻]')+inp('c','[HA]'),()=>`pH=<b>${(v('a')+Math.log10(v('b')/v('c'))).toFixed(4)}</b>`],'Ksp — 1:1 Salt':[inp('a','Solubility s'),()=>`Ksp=s²=<b>${(v('a')**2).toExponential(6)}</b>`],'Nernst Equation':[inp('a','E°')+inp('b','n')+inp('c','Q'),()=>`E=<b>${(v('a')-.05916/v('b')*Math.log10(v('c'))).toFixed(4)} V</b>`]}[x];calc(x,f[0],f[1])}
